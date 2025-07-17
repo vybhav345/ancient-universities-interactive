@@ -94,12 +94,10 @@ class AncientUniversitiesApp {
     };
 
     this.audioTracks = {
-      intro :
-          "Welcome to the journey through ancient India's educational marvels...",
-      takshashila :
-          "Step into Takshashila, where the concept of university education was born...",
-      nalanda : "Discover Nalanda, the pinnacle of ancient learning...",
-      legacy : "Explore how these universities shaped the modern world..."
+      intro : "intro.mp3",
+      takshashila : "takshashila.mp3", // add file if available
+      nalanda : "nalanda.mp3",         // add file if available
+      legacy : "legacy.mp3"            // add file if available
     };
 
     this.init();
@@ -132,7 +130,7 @@ class AncientUniversitiesApp {
         ?.addEventListener('click',
                            () => { this.scrollToSection('takshashila'); });
 
-    document.querySelector('.hero-buttons .btn--secondary')
+    document.querySelector('.hero-buttons .btn--outline')
         ?.addEventListener('click', () => { this.openWorldMap(); });
 
     // Comparison cards
@@ -175,7 +173,7 @@ class AncientUniversitiesApp {
       });
     });
 
-    // Trivia items
+    // Trivia items (popover)
     document.querySelectorAll('.trivia-item').forEach(item => {
       item.addEventListener('mouseenter', (e) => {
         const triviaKey = item.dataset.popover;
@@ -241,7 +239,6 @@ class AncientUniversitiesApp {
 
   setupThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = themeToggle.querySelector('.theme-icon');
 
     // Check saved theme
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -265,16 +262,12 @@ class AncientUniversitiesApp {
 
   setupAudioTour() {
     const audioBtn = document.getElementById('audio-tour-btn');
-    const audioPlayer = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('play-pause-btn');
     const closeAudioBtn = document.getElementById('close-audio');
-    const audioTitle = document.getElementById('audio-title');
 
     audioBtn.addEventListener('click', () => { this.toggleAudioTour(); });
-
     playPauseBtn.addEventListener('click',
                                   () => { this.toggleAudioPlayback(); });
-
     closeAudioBtn.addEventListener('click', () => { this.closeAudioTour(); });
   }
 
@@ -282,8 +275,7 @@ class AncientUniversitiesApp {
     const audioPlayer = document.getElementById('audio-player');
 
     if (this.audioTourActive) {
-      audioPlayer.classList.add('hidden');
-      this.audioTourActive = false;
+      this.closeAudioTour();
     } else {
       audioPlayer.classList.remove('hidden');
       this.audioTourActive = true;
@@ -294,13 +286,55 @@ class AncientUniversitiesApp {
   playAudioTrack(track) {
     const audioTitle = document.getElementById('audio-title');
     const playPauseBtn = document.getElementById('play-pause-btn');
+    const audioElement = document.getElementById('audio-element');
 
-    audioTitle.textContent = this.audioTracks[track];
-    playPauseBtn.textContent = '⏸️';
+    // Set a friendly title for display
+    const trackTitles = {
+      intro : "Introduction Audio Tour",
+      takshashila : "Takshashila Audio Tour",
+      nalanda : "Nalanda Audio Tour",
+      legacy : "Legacy Audio Tour"
+    };
+    audioTitle.textContent = trackTitles[track] || "Audio Tour";
 
-    // Simulate audio playback (in real implementation, you'd use actual audio
-    // files)
-    setTimeout(() => { playPauseBtn.textContent = '▶️'; }, 3000);
+    // Update audio src dynamically if you have more audio files for other
+    // tracks Here, only intro.mp3 is used. To extend, add those files and set
+    // src accordingly.
+    audioElement.src = this.audioTracks[track];
+
+    // Load and play
+    audioElement.load();
+    audioElement.play()
+        .then(() => { playPauseBtn.textContent = '⏸️'; })
+        .catch(err => { console.error("Audio playback failed:", err); });
+
+    // When audio ends, reset play button
+    audioElement.onended = () => { playPauseBtn.textContent = '▶️'; };
+  }
+
+  toggleAudioPlayback() {
+    const audioElement = document.getElementById('audio-element');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+
+    if (audioElement.paused) {
+      audioElement.play();
+      playPauseBtn.textContent = '⏸️';
+    } else {
+      audioElement.pause();
+      playPauseBtn.textContent = '▶️';
+    }
+  }
+
+  closeAudioTour() {
+    const audioPlayer = document.getElementById('audio-player');
+    const audioElement = document.getElementById('audio-element');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+
+    audioElement.pause();
+    audioElement.currentTime = 0;
+    audioPlayer.classList.add('hidden');
+    playPauseBtn.textContent = '▶️';
+    this.audioTourActive = false;
   }
 
   setupQuiz() {
@@ -346,7 +380,6 @@ class AncientUniversitiesApp {
       selectedOption.classList.add('correct');
     } else {
       selectedOption.classList.add('incorrect');
-      // Highlight correct answer
       options.forEach(option => {
         if (option.dataset.answer === 'correct') {
           option.classList.add('correct');
@@ -354,13 +387,10 @@ class AncientUniversitiesApp {
       });
     }
 
-    // Disable all options
     options.forEach(option => { option.disabled = true; });
 
-    // Move to next question after delay
     setTimeout(() => {
       this.currentQuizQuestion++;
-
       if (this.currentQuizQuestion < this.quizData.length) {
         this.renderQuizQuestion();
       } else {
@@ -379,7 +409,6 @@ class AncientUniversitiesApp {
     quizResult.classList.remove('hidden');
     finalScore.textContent = this.quizScore;
 
-    // Set appropriate icon based on score
     if (this.quizScore >= 4) {
       resultIcon.textContent = '🏆';
     } else if (this.quizScore >= 3) {
@@ -403,7 +432,6 @@ class AncientUniversitiesApp {
   }
 
   setupModals() {
-    // Create dynamic modals for different content types
     this.createDynamicModal('scholar-modal');
     this.createDynamicModal('timeline-modal');
     this.createDynamicModal('architectural-modal');
@@ -437,7 +465,6 @@ class AncientUniversitiesApp {
 
     document.body.appendChild(modal);
 
-    // Add event listeners
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         this.closeModal(modalId);
@@ -530,7 +557,8 @@ class AncientUniversitiesApp {
 
   hidePopover() {
     const popover = document.getElementById('popover');
-    popover.style.display = 'none';
+    if (popover)
+      popover.style.display = 'none';
   }
 
   setupScrollEffects() {
@@ -547,7 +575,6 @@ class AncientUniversitiesApp {
       this.updateActiveNavigation();
     }, 16));
 
-    // Scroll to top button
     this.createScrollToTopButton();
   }
 
@@ -646,14 +673,11 @@ class AncientUniversitiesApp {
 
   personalizeExperience() {
     if (this.userName) {
-      // Add personalized elements
       const heroTitle = document.querySelector('.hero-title');
       if (heroTitle) {
         heroTitle.innerHTML =
             `Welcome ${this.userName}!<br>Ancient India's Educational Marvels`;
       }
-
-      // Add more personalization as needed
     }
   }
 
@@ -734,18 +758,18 @@ class AncientUniversitiesApp {
   openWorldMap() { this.scrollToSection('world-map-section'); }
 
   showExploreModal(topic) {
-    // Implementation for explore modal
     console.log('Showing explore modal for:', topic);
+    // Implement modal content/population as needed
   }
 
   showTimelineModal(era) {
-    // Implementation for timeline modal
     console.log('Showing timeline modal for:', era);
+    // Implement modal content/population as needed
   }
 
   showArchitecturalModal(location) {
-    // Implementation for architectural modal
     console.log('Showing architectural modal for:', location);
+    // Implement modal content/population as needed
   }
 }
 
@@ -753,7 +777,7 @@ class AncientUniversitiesApp {
 document.addEventListener('DOMContentLoaded', () => {
   window.app = new AncientUniversitiesApp();
 
-  // Add loading animation
+  // Add loading animation fade-in
   document.body.style.opacity = '0';
   setTimeout(() => {
     document.body.style.transition = 'opacity 0.5s ease';
@@ -767,39 +791,38 @@ window.showModal = (modalId) => window.app.showModal(modalId);
 window.closeModal = (modalId) => window.app.closeModal(modalId);
 window.restartQuiz = () => window.app.restartQuiz();
 
-
 // Remove loading screen after content loads
 window.addEventListener('load', () => {
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => loadingScreen.remove(), 1000);
+  const loadingScreen = document.getElementById('loading-screen');
+  if (loadingScreen) {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => loadingScreen.remove(), 1000);
+  }
+
+  // Optional ambient audio setup (adjust path & file if you want ambient music)
+  const ambientAudio = new Audio('assets/audio/ambient_sitar.mp3');
+  ambientAudio.loop = true;
+  ambientAudio.volume = 0.2;
+
+  const toggleAmbientBtn = document.createElement('button');
+  toggleAmbientBtn.textContent = '🎶 Toggle Music';
+  toggleAmbientBtn.className = 'btn btn--sm btn--outline';
+  toggleAmbientBtn.style.position = 'fixed';
+  toggleAmbientBtn.style.bottom = '20px';
+  toggleAmbientBtn.style.right = '20px';
+  toggleAmbientBtn.style.zIndex = 1000;
+
+  document.body.appendChild(toggleAmbientBtn);
+  let playing = false;
+
+  toggleAmbientBtn.addEventListener('click', () => {
+    if (!playing) {
+      ambientAudio.play();
+      toggleAmbientBtn.textContent = '🔇 Stop Music';
+    } else {
+      ambientAudio.pause();
+      toggleAmbientBtn.textContent = '🎶 Toggle Music';
     }
-
-    // Optional ambient audio setup
-    const ambientAudio = new Audio('assets/audio/ambient_sitar.mp3');
-    ambientAudio.loop = true;
-    ambientAudio.volume = 0.2;
-
-    const toggleAmbientBtn = document.createElement('button');
-    toggleAmbientBtn.textContent = '🎶 Toggle Music';
-    toggleAmbientBtn.className = 'btn btn--sm btn--outline';
-    toggleAmbientBtn.style.position = 'fixed';
-    toggleAmbientBtn.style.bottom = '20px';
-    toggleAmbientBtn.style.right = '20px';
-    toggleAmbientBtn.style.zIndex = 1000;
-
-    document.body.appendChild(toggleAmbientBtn);
-    let playing = false;
-
-    toggleAmbientBtn.addEventListener('click', () => {
-        if (!playing) {
-            ambientAudio.play();
-            toggleAmbientBtn.textContent = '🔇 Stop Music';
-        } else {
-            ambientAudio.pause();
-            toggleAmbientBtn.textContent = '🎶 Toggle Music';
-        }
-        playing = !playing;
-    });
+    playing = !playing;
+  });
 });
