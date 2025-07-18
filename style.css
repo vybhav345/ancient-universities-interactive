@@ -729,15 +729,45 @@ body {
 
 /* Hero Section */
 .hero {
+  position: relative;       /* important for absolutely positioned video */
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: var(--gradient-hero);
+  background: none;
   padding: var(--space-32) 0;
   margin-top: 80px;
+  overflow: hidden;         /* clip any overflow from video */
+}
+
+.hero-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;              /* behind text */
+  pointer-events: none;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* 54% opaque black for good contrast */
+  z-index: 2; /* Between .hero-video (z-index: 1) and .hero-content (z-index: 3) */
+  pointer-events: none;
+}
+
+.hero-pattern {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;          /* PATTERN OVER video, UNDER text */
+  opacity: 0.15;
+  background: var(--pattern-lotus);
 }
 
 .hero-content {
+  position: relative; 
+  z-index: 3;      /* position context for video */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-32);
@@ -750,8 +780,8 @@ body {
 .hero-title {
   font-size: 4rem;
   font-weight: var(--font-weight-bold);
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: orange;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
   margin-bottom: var(--space-16);
   line-height: var(--line-height-tight);
 }
