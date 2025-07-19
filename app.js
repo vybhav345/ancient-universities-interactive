@@ -93,6 +93,122 @@ class AncientUniversitiesApp {
       }
     };
 
+    this.exploreData = {
+      admission : {
+        icon : '🎯',
+        title : 'The Gates of Takshashila',
+        subtitle : 'A Legendary Entrance Exam',
+        content :
+            'Admission to Takshashila was notoriously difficult. Prospective students had to demonstrate profound knowledge and intellectual prowess to a council of scholars. The pass rate was a mere 30%, ensuring only the most dedicated minds entered its halls. This rigorous standard maintained its reputation as the premier center of learning.'
+      },
+      curriculum : {
+        icon : '📚',
+        title : 'The 68 Subjects',
+        subtitle : 'A Comprehensive Curriculum',
+        content :
+            'Takshashila offered a vast curriculum of 68 distinct subjects. These included the Vedas, grammar, philosophy, medicine (Ayurveda), surgery, archery, politics, warfare, astronomy, commerce, and even music and dance. This holistic approach to education was unparalleled in the ancient world.'
+      },
+      scholars : {
+        icon : '👨‍🎓',
+        title : 'A Legacy of Legends',
+        subtitle : 'The Minds that Shaped an Era',
+        content :
+            'Takshashila was not just a university; it was a cradle of genius. Its alumni include figures like Panini, the father of grammar; Chanakya, the master political strategist; and Jivaka, the pioneer of medicine. These scholars and their works have left an indelible mark on history.'
+      }
+    };
+
+    this.timelineData = {
+      'takshashila-foundation' : {
+        icon : '🏛️',
+        title : 'The Dawn of an Era',
+        subtitle : 'c. 600 BCE',
+        content :
+            'Takshashila is established, becoming what many historians consider the world\'s first university. It quickly becomes a beacon for scholars in various disciplines.'
+      },
+      'panini-grammar' : {
+        icon : '📜',
+        title : 'Panini\'s Ashtadhyayi',
+        subtitle : 'c. 400 BCE',
+        content :
+            'The grammarian Panini, an alumnus of Takshashila, composes the Ashtadhyayi. This masterpiece of 4,000 grammatical rules standardizes the Sanskrit language and becomes a foundational text for linguistics.'
+      },
+      'chanakya-era' : {
+        icon : '⚖️',
+        title : 'Chanakya and the Mauryan Empire',
+        subtitle : 'c. 350 BCE',
+        content :
+            'Chanakya (or Kautilya), a professor at Takshashila, authors the Arthashastra and mentors Chandragupta Maurya, leading to the establishment of the mighty Mauryan Empire.'
+      },
+      'nalanda-foundation' : {
+        icon : '🏛️',
+        title : 'Nalanda is Born',
+        subtitle : '427 CE',
+        content :
+            'Under the patronage of the Gupta Empire, Nalanda Mahavihara is founded. It evolves into the world\'s first great residential university, with vast libraries, dormitories, and lecture halls.'
+      },
+      'xuanzang-visit' : {
+        icon : '🇨🇳',
+        title : 'Xuanzang\'s Journey',
+        subtitle : '630 CE',
+        content :
+            'The Chinese Buddhist monk and scholar Xuanzang arrives at Nalanda. He studies there for five years and his detailed writings provide one of the most important historical accounts of the university at its zenith.'
+      },
+      'nalanda-destruction' : {
+        icon : '💥',
+        title : 'The End of an Age',
+        subtitle : '1193 CE',
+        content :
+            'The library of Nalanda is set aflame by invaders led by Bakhtiyar Khilji. The fire is said to have burned for three months, destroying millions of manuscripts and marking a tragic end to a 700-year legacy of learning.'
+      }
+    };
+
+    this.campusData = {
+      library : {
+        icon : '📚',
+        title : 'Dharma Gunj - The Library',
+        subtitle : 'The Mountain of Truth',
+        content :
+            'Nalanda\'s library, the Dharma Gunj, was a nine-story complex housing three massive buildings: the Ratnasagara (Ocean of Jewels), Ratnadadhi (Sea of Jewels), and Ratnaranjaka (Jewel-Adorned). It contained an estimated nine million manuscripts.'
+      },
+      'lecture-hall' : {
+        icon : '🎓',
+        title : 'The Lecture Halls',
+        subtitle : 'Centers of Debate',
+        content :
+            'Nalanda had hundreds of lecture halls where thousands of students and teachers engaged in rigorous debate and learning. The curriculum covered every field of learning, from science and mathematics to medicine and Buddhist scriptures.'
+      },
+      temples : {
+        icon : '🛕',
+        title : 'The Great Stupa',
+        subtitle : 'A Place of Worship and Study',
+        content :
+            'The campus was dotted with temples and stupas, with the Great Stupa being the most prominent structure. These were not just places of worship but also integral to the architectural and academic life of the monastery.'
+      }
+    };
+
+    this.mapConnectionData = {
+      china : {
+        title : "Xuanzang's Pilgrimage",
+        description :
+            "The famous Chinese scholar Xuanzang traveled to Nalanda in the 7th century. He studied for five years and took over 650 manuscripts back to China, significantly influencing the course of East Asian Buddhism.",
+      },
+      greece : {
+        title : "Hellenistic Exchange",
+        description :
+            "Following Alexander's campaigns, the region of Takshashila became a hub for Greco-Indian dialogue. Greek astronomy, philosophy, and art exchanged with Indian mathematics and spiritual thought.",
+      },
+      persia : {
+        title : "Achaemenid & Sassanian Links",
+        description :
+            "For centuries, Persian empires shared a border and deep cultural ties with the educational centers in Gandhara. Scholars, traders, and ideas flowed freely between the two great civilizations.",
+      },
+      tibet : {
+        title : "The Roots of Tibetan Buddhism",
+        description :
+            "Many foundational figures of Tibetan Buddhism, like Padmasambhava and Shantarakshita, were scholars from Nalanda. They carried the university's teachings into the Himalayas, shaping Tibetan culture forever.",
+      },
+    };
+
     this.audioTracks = {
       intro : "intro.mp3",
       takshashila : "takshashila.mp3", // add file if available
@@ -113,6 +229,8 @@ class AncientUniversitiesApp {
     this.setupPopovers();
     this.setupScrollEffects();
     this.checkFirstVisit();
+    window.addEventListener(
+        'load', () => { document.getElementById('loading-screen')?.remove(); });
   }
 
   setupEventListeners() {
@@ -120,121 +238,141 @@ class AncientUniversitiesApp {
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = link.getAttribute('href').substring(1);
-        this.scrollToSection(target);
+        this.scrollToSection(link.getAttribute('href').substring(1));
       });
     });
 
-    // Hero buttons
-    document.querySelector('.hero-buttons .btn--primary')
-        ?.addEventListener('click',
-                           () => { this.scrollToSection('takshashila'); });
+    // Hero Button
+    document.getElementById('begin-journey-btn')
+        ?.addEventListener('click', () => this.scrollToSection('takshashila'));
 
-    document.querySelector('.hero-buttons .btn--outline')
-        ?.addEventListener('click', () => { this.openWorldMap(); });
+    // Clickable Cards
+    document
+        .querySelectorAll(
+            '.comparison-card, .explore-card, .scholar-card, .timeline-era, .campus-hotspot')
+        .forEach(card => {
+          const handleInteraction = () => {
+            if (card.dataset.university)
+              this.scrollToSection(card.dataset.university);
+            if (card.dataset.scholar)
+              this.showInfoModal('scholar', card.dataset.scholar);
+            if (card.dataset.topic)
+              this.showInfoModal('explore', card.dataset.topic);
+            if (card.dataset.era)
+              this.showInfoModal('timeline', card.dataset.era);
+            if (card.dataset.location)
+              this.showInfoModal('campus', card.dataset.location);
+          };
+          card.addEventListener('click', handleInteraction);
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleInteraction();
+            }
+          });
+        });
 
-    // Comparison cards
-    document.querySelectorAll('.comparison-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const university = card.dataset.university;
-        this.scrollToSection(university);
-      });
-    });
-
-    // Explore cards
-    document.querySelectorAll('.explore-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const topic = card.dataset.topic;
-        this.showExploreModal(topic);
-      });
-    });
-
-    // Scholar cards
-    document.querySelectorAll('.scholar-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const scholar = card.dataset.scholar;
-        this.showScholarModal(scholar);
-      });
-    });
-
-    // Timeline eras
-    document.querySelectorAll('.timeline-era').forEach(era => {
-      era.addEventListener('click', () => {
-        const eraData = era.dataset.era;
-        this.showTimelineModal(eraData);
-      });
-    });
-
-    // Campus hotspots
-    document.querySelectorAll('.campus-hotspot').forEach(hotspot => {
-      hotspot.addEventListener('click', () => {
-        const location = hotspot.dataset.location;
-        this.showArchitecturalModal(location);
-      });
-    });
-
-    // Trivia items (popover)
+    // Trivia Items (Popover)
     document.querySelectorAll('.trivia-item').forEach(item => {
-      item.addEventListener('mouseenter', (e) => {
-        const triviaKey = item.dataset.popover;
-        this.showPopover(e.target, triviaKey);
-      });
-
-      item.addEventListener('mouseleave', () => { this.hidePopover(); });
+      const show = () => this.showPopover(item, item.dataset.popover);
+      const hide = () => this.hidePopover();
+      item.addEventListener('mouseenter', show);
+      item.addEventListener('focus', show);
+      item.addEventListener('mouseleave', hide);
+      item.addEventListener('blur', hide);
     });
 
     // Modal close events
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          this.closeModal(modal.id);
-        }
-      });
+    const infoModal = document.getElementById('info-modal');
+    infoModal?.addEventListener('click', e => {
+      if (e.target === infoModal)
+        this.closeModal();
+    });
+    infoModal?.querySelector('.close').addEventListener(
+        'click', () => this.closeModal());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape')
+        this.closeModal();
     });
 
-    document.querySelectorAll('.close').forEach(closeBtn => {
-      closeBtn.addEventListener('click', (e) => {
-        const modal = e.target.closest('.modal');
-        this.closeModal(modal.id);
-      });
+    // Quiz Buttons
+    document.querySelectorAll('.quiz-option').forEach(option => {
+      option.addEventListener('click', () => this.handleQuizAnswer(option));
     });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.closeAllModals();
-      }
-    });
+    document.getElementById('restart-quiz-btn')
+        ?.addEventListener('click', () => this.restartQuiz());
   }
 
   setupIntersectionObserver() {
-    const observerOptions = {threshold : 0.1, rootMargin : '0px 0px -50px 0px'};
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-
-          // Trigger counter animations
-          if (entry.target.classList.contains('stat-number')) {
-            this.animateCounter(entry.target);
+          // Animate counters
+          entry.target.querySelectorAll('.stat-number.animated')
+              .forEach(el => this.animateCounter(el));
+          // Context-aware audio tour
+          if (this.audioTourActive && entry.target.dataset.universityAudio) {
+            this.updateAudioPrompt(entry.target.dataset.universityAudio);
           }
         }
       });
-    }, observerOptions);
+    }, {threshold : 0.4});
 
-    // Observe elements for animations
-    document
-        .querySelectorAll(
-            '.fade-in, .stat-card, .scholar-card, .explore-card, .timeline-era')
-        .forEach(el => {
-          el.classList.add('fade-in');
-          observer.observe(el);
-        });
+    document.querySelectorAll('#takshashila, #nalanda').forEach(section => {
+      section.dataset.universityAudio = section.id;
+      observer.observe(section);
+    });
+  }
 
-    // Observe stat numbers
-    document.querySelectorAll('.stat-number')
-        .forEach(el => { observer.observe(el); });
+  // Fully functional generic modal
+  showInfoModal(type, key) {
+    let data;
+    switch (type) {
+    case 'scholar':
+      data = this.scholarData[key];
+      break;
+    case 'explore':
+      data = this.exploreData[key];
+      break;
+    case 'timeline':
+      data = this.timelineData[key];
+      break;
+    case 'campus':
+      data = this.campusData[key];
+      break;
+    default:
+      return;
+    }
+    if (!data)
+      return;
+
+    document.getElementById('modal-icon').textContent =
+        data.icon || data.avatar;
+    document.getElementById('modal-title').textContent =
+        data.name || data.title;
+    document.getElementById('modal-subtitle').textContent =
+        data.field || data.subtitle;
+
+    let bodyContent = '';
+    if (data.education) { // Scholar format
+      bodyContent =
+          `<p><b>Education:</b> ${data.education}</p><p><b>Achievement:</b> ${
+              data.achievement}</p><p><b>Legacy:</b> ${data.legacy}</p>`;
+    } else { // Generic format
+      bodyContent = `<p>${data.content}</p>`;
+    }
+    document.getElementById('modal-body').innerHTML = bodyContent;
+
+    document.getElementById('info-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal() {
+    const modal = document.getElementById('info-modal');
+    if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
   }
 
   setupThemeToggle() {
@@ -824,5 +962,32 @@ window.addEventListener('load', () => {
       toggleAmbientBtn.textContent = '🎶 Toggle Music';
     }
     playing = !playing;
+  });
+});
+
+// Nalanda Story Slider
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.story-slide');
+  const prevBtn = document.querySelector('.story-prev');
+  const nextBtn = document.querySelector('.story-next');
+  let current = 0;
+  if (slides.length === 0)
+    return;
+
+  function showSlide(index) {
+    slides.forEach(
+        (slide, i) => { slide.classList.toggle('active', i === index); });
+  }
+
+  showSlide(current);
+
+  prevBtn.addEventListener('click', function() {
+    current = (current - 1 + slides.length) % slides.length;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener('click', function() {
+    current = (current + 1) % slides.length;
+    showSlide(current);
   });
 });

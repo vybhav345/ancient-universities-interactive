@@ -752,7 +752,7 @@ body {
 .hero-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* 54% opaque black for good contrast */
+  background: rgba(0, 0, 0, 0.6); /* 54% opaque black for good contrast */
   z-index: 2; /* Between .hero-video (z-index: 1) and .hero-content (z-index: 3) */
   pointer-events: none;
 }
@@ -823,7 +823,7 @@ body {
 }
 
 .university-section:nth-child(even) {
-  background: var(--color-surface);
+  background: rgba(246, 232, 214, 0.96);
 }
 
 .nalanda-section {
@@ -836,10 +836,9 @@ body {
 }
 
 .section-title {
-  font-size: var(--font-size-4xl);
-  color: var(--color-text);
-  margin-bottom: var(--space-16);
-  font-weight: var(--font-weight-bold);
+  font-family: 'Tiro Devanagari Sanskrit', serif;
+  color: #795542; /* deep umber, not black */
+  text-shadow: 0 2px 4px #e0c09722;
 }
 
 .section-subtitle {
@@ -857,7 +856,7 @@ body {
 }
 
 .stat-card {
-  background: var(--color-surface);
+  background: rgba(246, 232, 214, 0.96);
   padding: var(--space-24);
   border-radius: var(--radius-lg);
   text-align: center;
@@ -977,7 +976,7 @@ body {
 }
 
 .alumni-card, .scholar-card {
-  background: var(--color-surface);
+  background: rgba(246, 232, 214, 0.96);
   padding: var(--space-24);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -1006,7 +1005,7 @@ body {
 
 /* Comparison Section */
 .comparison-section {
-  background: var(--color-surface);
+  background: rgba(246, 232, 214, 0.96);
   padding: var(--space-32) 0;
 }
 
@@ -1080,7 +1079,7 @@ body {
 }
 
 .timeline-content {
-  background: var(--color-surface);
+  background: rgba(246, 232, 214, 0.96);
   padding: var(--space-20);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
@@ -1174,7 +1173,7 @@ body {
 }
 
 .unesco-recognition {
-  background: var(--color-surface);
+  background: rgba(246, 232, 214, 0.96);
   padding: var(--space-24);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -1394,7 +1393,7 @@ html {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-16);
@@ -1468,7 +1467,7 @@ html {
 /* Quick comparison section */
 .comparison-quick {
     padding: var(--space-32) 0;
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
 }
 
 .comparison-grid {
@@ -1479,7 +1478,7 @@ html {
 }
 
 .comparison-card {
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     border: 2px solid var(--color-card-border);
     border-radius: var(--radius-lg);
     padding: var(--space-24);
@@ -1613,7 +1612,7 @@ html {
 }
 
 .explore-card {
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     border: 1px solid var(--color-card-border);
     border-radius: var(--radius-lg);
     padding: var(--space-24);
@@ -1648,7 +1647,7 @@ html {
     display: flex;
     align-items: center;
     gap: var(--space-8);
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     padding: var(--space-12);
     border-radius: var(--radius-base);
     cursor: pointer;
@@ -1735,7 +1734,7 @@ html {
 }
 
 .campus-viewer {
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     border-radius: var(--radius-lg);
     padding: var(--space-24);
     position: relative;
@@ -1907,7 +1906,7 @@ html {
 
 /* World map */
 .world-map-section {
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     padding: var(--space-32) 0;
 }
 
@@ -1972,14 +1971,16 @@ html {
 
 /* Quiz section */
 .quiz-section {
-    background: var(--color-surface);
-    padding: var(--space-32) 0;
+  background: rgba(246, 232, 214, 0.96); /* papyrus/ivory */
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(180, 117, 60, 0.07);
+  border: 1.5px solid #e0c097;
 }
 
 .quiz-container {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     border-radius: var(--radius-lg);
     padding: var(--space-32);
     box-shadow: var(--shadow-lg);
@@ -2142,7 +2143,7 @@ html {
     z-index: 1000;
     display: none;
     max-width: 300px;
-    background: var(--color-surface);
+    background: rgba(246, 232, 214, 0.96);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-base);
     box-shadow: var(--shadow-lg);
@@ -2300,4 +2301,226 @@ body {
 /* Make headings inherit font for cultural touch */
 h1, h2, h3, h4 {
     font-family: 'Tiro Devanagari Sanskrit', serif;
+    color: #795542; /* deep umber, not black */
+    text-shadow: 0 2px 4px #e0c09722;
+}
+
+.story-section {
+  background: rgba(245, 245, 220, 0.75); /* subtle paper tone */
+  padding: 64px 0;
+  text-align: center;
+  position: relative;
+}
+
+.story-title {
+  font-size: 2.5rem;
+  margin-bottom: 32px;
+  color: #6e3c15;
+  letter-spacing: 0.05em;
+}
+
+.story-slider {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  overflow: hidden;
+  min-height: 420px;
+}
+
+.story-slide {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  animation: fadein 0.7s;
+}
+
+.story-slide.active {
+  display: flex;
+}
+
+.story-img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(80, 54, 40, 0.13);
+  margin-bottom: 20px;
+}
+
+.story-caption {
+  background: rgba(255,255,255,0.7);
+  padding: 18px 32px;
+  margin: 0 auto;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(70,40,20,0.08);
+  max-width: 560px;
+}
+
+.story-caption h3 {
+  color: #795542;
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.story-nav {
+  margin: 18px 0 0;
+}
+
+.story-nav button {
+  background: #ffeedd;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 2rem;
+  color: #9c6e3f;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  box-shadow: 0 2px 6px rgba(80,54,40,0.04);
+}
+
+.story-nav button:hover,
+.story-nav button:focus {
+  background: #edd0aa;
+  outline: none;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* --- ENHANCEMENTS & FIXES --- */
+
+/* 1. Accessibility enhancement for focused cards */
+.explore-card:focus-visible,
+.comparison-card:focus-visible,
+.scholar-card.enhanced:focus-visible,
+.timeline-era:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+    border-color: var(--color-primary);
+}
+
+/* 2. Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-scroll-beige);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-temple-stone);
+    border-radius: 20px;
+    border: 3px solid var(--color-scroll-beige);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-dark-brown);
+}
+
+/* 3. Small enhancement for nav links */
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* space between icon and text */
+}
+
+/* 4. Responsive enhancements for smaller mobiles */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .section-title {
+        font-size: var(--font-size-2xl);
+    }
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .vs-divider {
+        margin: 20px auto;
+        transform: rotate(90deg);
+    }
+    .scholars-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Styles for Interactive Map Annotations --- */
+
+.map-lines-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through to the markers below */
+}
+
+.map-line {
+    fill: none;
+    stroke: var(--color-gold);
+    stroke-width: 3;
+    stroke-linecap: round;
+    /* Animation properties */
+    stroke-dasharray: 1500; /* A large number, longer than any possible line */
+    stroke-dashoffset: 1500; /* Hides the line initially */
+    animation: draw-line 2s ease-out forwards;
+}
+
+@keyframes draw-line {
+    to {
+        stroke-dashoffset: 0; /* Animates the line into view */
+    }
+}
+
+.map-info-card {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    max-width: 320px;
+    background: rgba(38, 40, 40, 0.9); /* Dark surface with transparency */
+    color: var(--color-text);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-border);
+    backdrop-filter: blur(5px);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s var(--ease-standard), opacity 0.4s var(--ease-standard);
+}
+
+.map-info-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.map-info-card h4 {
+    color: var(--color-gold);
+    margin-bottom: var(--space-8);
+}
+
+.map-info-card p {
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    margin: 0;
+    color: rgba(245, 245, 245, 1);
+}
+
+/* Adjust for light theme */
+[data-color-scheme="light"] .map-info-card {
+    background: rgba(255, 255, 253, 0.9);
+}
+
+[data-color-scheme="light"] .map-info-card p {
+    color: var(--color-text);
 }
