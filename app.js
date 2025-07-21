@@ -210,10 +210,10 @@ class AncientUniversitiesApp {
     };
 
     this.audioTracks = {
-      intro : "intro.mp3",
-      takshashila : "takshashila.mp3", // add file if available
-      nalanda : "nalanda.mp3",         // add file if available
-      legacy : "legacy.mp3"            // add file if available
+      intro : "assets/audio/intro.mp3",
+      takshashila : "assets/audio/takshashila.mp3",
+      nalanda : "assets/audio/nalanda.mp3",
+      legacy : "assets/audio/legacy.mp3" // add file if available
     };
 
     this.init();
