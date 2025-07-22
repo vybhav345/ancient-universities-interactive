@@ -2524,3 +2524,74 @@ h1, h2, h3, h4 {
 [data-color-scheme="light"] .map-info-card p {
     color: var(--color-text);
 }
+
+.vlog-section {
+  background: #f8f6f3;
+  border-radius: 1rem;
+  padding: 2.5rem 1.2rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 16px rgba(62,40,20,0.09);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+.vlog-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.vlog-moment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-left: 3px solid #a06d2b;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.vlog-moment::before {
+  content: '';
+  width: 1.1rem;
+  height: 1.1rem;
+  background: #ffd76a;
+  border-radius: 50%;
+  position: absolute;
+  left: -2.2rem;
+  top: 0;
+  border: 2px solid #a06d2b;
+}
+.vlog-time {
+  font-weight: bold;
+  color: #7b5517;
+  margin-bottom: .6rem;
+  font-size: 1.03rem;
+}
+.vlog-content {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.vlog-image {
+  max-width: 500px;
+  border-radius: .8rem;
+  box-shadow: 0 2px 8px rgba(120,90,30,0.11);
+  margin-bottom: .6rem;
+}
+.vlog-video iframe, .vlog-video video {
+  max-width: 500px;
+  width: 100%;
+  border-radius: .8rem;
+  box-shadow: 0 2px 8px rgba(120,90,30,0.15);
+  background: #000;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .vlog-content { flex-direction: column; gap: .7rem; }
+  .vlog-timeline { gap: 1rem; }
+  .vlog-moment { padding-left: .7rem; }
+}
