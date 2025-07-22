@@ -6,6 +6,8 @@ class AncientUniversitiesApp {
     this.currentQuizQuestion = 0;
     this.quizScore = 0;
     this.userName = '';
+    this.currentAudio = null;
+
     this.quizData = [
       {
         question : "What was the pass rate for Takshashila's entrance exam?",
@@ -186,34 +188,11 @@ class AncientUniversitiesApp {
       }
     };
 
-    this.mapConnectionData = {
-      china : {
-        title : "Xuanzang's Pilgrimage",
-        description :
-            "The famous Chinese scholar Xuanzang traveled to Nalanda in the 7th century. He studied for five years and took over 650 manuscripts back to China, significantly influencing the course of East Asian Buddhism.",
-      },
-      greece : {
-        title : "Hellenistic Exchange",
-        description :
-            "Following Alexander's campaigns, the region of Takshashila became a hub for Greco-Indian dialogue. Greek astronomy, philosophy, and art exchanged with Indian mathematics and spiritual thought.",
-      },
-      persia : {
-        title : "Achaemenid & Sassanian Links",
-        description :
-            "For centuries, Persian empires shared a border and deep cultural ties with the educational centers in Gandhara. Scholars, traders, and ideas flowed freely between the two great civilizations.",
-      },
-      tibet : {
-        title : "The Roots of Tibetan Buddhism",
-        description :
-            "Many foundational figures of Tibetan Buddhism, like Padmasambhava and Shantarakshita, were scholars from Nalanda. They carried the university's teachings into the Himalayas, shaping Tibetan culture forever.",
-      },
-    };
-
     this.audioTracks = {
       intro : "assets/audio/intro.mp3",
       takshashila : "assets/audio/takshashila.mp3",
       nalanda : "assets/audio/nalanda.mp3",
-      legacy : "assets/audio/legacy.mp3" // add file if available
+      legacy : "assets/audio/legacy.mp3"
     };
 
     this.init();
@@ -229,8 +208,13 @@ class AncientUniversitiesApp {
     this.setupPopovers();
     this.setupScrollEffects();
     this.checkFirstVisit();
-    window.addEventListener(
-        'load', () => { document.getElementById('loading-screen')?.remove(); });
+
+    window.addEventListener('load', () => {
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        loadingScreen.remove();
+      }
+    });
   }
 
   setupEventListeners() {
@@ -238,13 +222,19 @@ class AncientUniversitiesApp {
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        this.scrollToSection(link.getAttribute('href').substring(1));
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          this.scrollToSection(href.substring(1));
+        }
       });
     });
 
     // Hero Button
-    document.getElementById('begin-journey-btn')
-        ?.addEventListener('click', () => this.scrollToSection('takshashila'));
+    const beginJourneyBtn = document.getElementById('begin-journey-btn');
+    if (beginJourneyBtn) {
+      beginJourneyBtn.addEventListener(
+          'click', () => this.scrollToSection('takshashila'));
+    }
 
     // Clickable Cards
     document
@@ -252,17 +242,19 @@ class AncientUniversitiesApp {
             '.comparison-card, .explore-card, .scholar-card, .timeline-era, .campus-hotspot')
         .forEach(card => {
           const handleInteraction = () => {
-            if (card.dataset.university)
+            if (card.dataset.university) {
               this.scrollToSection(card.dataset.university);
-            if (card.dataset.scholar)
+            } else if (card.dataset.scholar) {
               this.showInfoModal('scholar', card.dataset.scholar);
-            if (card.dataset.topic)
+            } else if (card.dataset.topic) {
               this.showInfoModal('explore', card.dataset.topic);
-            if (card.dataset.era)
+            } else if (card.dataset.era) {
               this.showInfoModal('timeline', card.dataset.era);
-            if (card.dataset.location)
+            } else if (card.dataset.location) {
               this.showInfoModal('campus', card.dataset.location);
+            }
           };
+
           card.addEventListener('click', handleInteraction);
           card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -274,8 +266,13 @@ class AncientUniversitiesApp {
 
     // Trivia Items (Popover)
     document.querySelectorAll('.trivia-item').forEach(item => {
-      const show = () => this.showPopover(item, item.dataset.popover);
+      const show = () => {
+        if (item.dataset.popover) {
+          this.showPopover(item, item.dataset.popover);
+        }
+      };
       const hide = () => this.hidePopover();
+
       item.addEventListener('mouseenter', show);
       item.addEventListener('focus', show);
       item.addEventListener('mouseleave', hide);
@@ -284,23 +281,34 @@ class AncientUniversitiesApp {
 
     // Modal close events
     const infoModal = document.getElementById('info-modal');
-    infoModal?.addEventListener('click', e => {
-      if (e.target === infoModal)
-        this.closeModal();
-    });
-    infoModal?.querySelector('.close').addEventListener(
-        'click', () => this.closeModal());
+    if (infoModal) {
+      infoModal.addEventListener('click', e => {
+        if (e.target === infoModal) {
+          this.closeModal();
+        }
+      });
+
+      const closeBtn = infoModal.querySelector('.close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => this.closeModal());
+      }
+    }
+
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape')
+      if (e.key === 'Escape') {
         this.closeModal();
+      }
     });
 
     // Quiz Buttons
     document.querySelectorAll('.quiz-option').forEach(option => {
       option.addEventListener('click', () => this.handleQuizAnswer(option));
     });
-    document.getElementById('restart-quiz-btn')
-        ?.addEventListener('click', () => this.restartQuiz());
+
+    const restartQuizBtn = document.getElementById('restart-quiz-btn');
+    if (restartQuizBtn) {
+      restartQuizBtn.addEventListener('click', () => this.restartQuiz());
+    }
   }
 
   setupIntersectionObserver() {
@@ -309,7 +317,8 @@ class AncientUniversitiesApp {
         if (entry.isIntersecting) {
           // Animate counters
           entry.target.querySelectorAll('.stat-number.animated')
-              .forEach(el => this.animateCounter(el));
+              .forEach(el => { this.animateCounter(el); });
+
           // Context-aware audio tour
           if (this.audioTourActive && entry.target.dataset.universityAudio) {
             this.updateAudioPrompt(entry.target.dataset.universityAudio);
@@ -324,7 +333,13 @@ class AncientUniversitiesApp {
     });
   }
 
-  // Fully functional generic modal
+  updateAudioPrompt(audioTrack) {
+    if (this.audioTracks[audioTrack]) {
+      this.playAudioTrack(audioTrack);
+    }
+  }
+
+  // Fixed modal system
   showInfoModal(type, key) {
     let data;
     switch (type) {
@@ -343,28 +358,80 @@ class AncientUniversitiesApp {
     default:
       return;
     }
+
     if (!data)
       return;
 
-    document.getElementById('modal-icon').textContent =
-        data.icon || data.avatar;
-    document.getElementById('modal-title').textContent =
-        data.name || data.title;
-    document.getElementById('modal-subtitle').textContent =
-        data.field || data.subtitle;
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('info-modal');
+    if (!modal) {
+      modal = this.createInfoModal();
+    }
+
+    const modalIcon = document.getElementById('modal-icon');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSubtitle = document.getElementById('modal-subtitle');
+    const modalBody = document.getElementById('modal-body');
+
+    if (modalIcon)
+      modalIcon.textContent = data.icon || data.avatar || '📚';
+    if (modalTitle)
+      modalTitle.textContent = data.name || data.title;
+    if (modalSubtitle)
+      modalSubtitle.textContent = data.field || data.subtitle || '';
 
     let bodyContent = '';
     if (data.education) { // Scholar format
-      bodyContent =
-          `<p><b>Education:</b> ${data.education}</p><p><b>Achievement:</b> ${
-              data.achievement}</p><p><b>Legacy:</b> ${data.legacy}</p>`;
+      bodyContent = `
+        <p><strong>Education:</strong> ${data.education}</p>
+        <p><strong>Achievement:</strong> ${data.achievement}</p>
+        <p><strong>Legacy:</strong> ${data.legacy}</p>
+      `;
     } else { // Generic format
       bodyContent = `<p>${data.content}</p>`;
     }
-    document.getElementById('modal-body').innerHTML = bodyContent;
 
-    document.getElementById('info-modal').style.display = 'block';
+    if (modalBody)
+      modalBody.innerHTML = bodyContent;
+
+    modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
+  }
+
+  createInfoModal() {
+    const modal = document.createElement('div');
+    modal.id = 'info-modal';
+    modal.className = 'modal';
+    modal.innerHTML = `
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-header">
+          <div class="modal-icon" id="modal-icon">📚</div>
+          <div>
+            <h3 id="modal-title">Title</h3>
+            <p id="modal-subtitle">Subtitle</p>
+          </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <p>Content goes here...</p>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        this.closeModal();
+      }
+    });
+
+    const closeBtn = modal.querySelector('.close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => this.closeModal());
+    }
+
+    return modal;
   }
 
   closeModal() {
@@ -377,6 +444,8 @@ class AncientUniversitiesApp {
 
   setupThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle)
+      return;
 
     // Check saved theme
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -393,7 +462,9 @@ class AncientUniversitiesApp {
     localStorage.setItem('theme', theme);
 
     const themeIcon = document.querySelector('.theme-icon');
-    themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+    if (themeIcon) {
+      themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+    }
 
     this.currentTheme = theme;
   }
@@ -403,14 +474,21 @@ class AncientUniversitiesApp {
     const playPauseBtn = document.getElementById('play-pause-btn');
     const closeAudioBtn = document.getElementById('close-audio');
 
-    audioBtn.addEventListener('click', () => { this.toggleAudioTour(); });
-    playPauseBtn.addEventListener('click',
-                                  () => { this.toggleAudioPlayback(); });
-    closeAudioBtn.addEventListener('click', () => { this.closeAudioTour(); });
+    if (audioBtn) {
+      audioBtn.addEventListener('click', () => this.toggleAudioTour());
+    }
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener('click', () => this.toggleAudioPlayback());
+    }
+    if (closeAudioBtn) {
+      closeAudioBtn.addEventListener('click', () => this.closeAudioTour());
+    }
   }
 
   toggleAudioTour() {
     const audioPlayer = document.getElementById('audio-player');
+    if (!audioPlayer)
+      return;
 
     if (this.audioTourActive) {
       this.closeAudioTour();
@@ -426,6 +504,9 @@ class AncientUniversitiesApp {
     const playPauseBtn = document.getElementById('play-pause-btn');
     const audioElement = document.getElementById('audio-element');
 
+    if (!audioElement)
+      return;
+
     // Set a friendly title for display
     const trackTitles = {
       intro : "Introduction Audio Tour",
@@ -433,30 +514,49 @@ class AncientUniversitiesApp {
       nalanda : "Nalanda Audio Tour",
       legacy : "Legacy Audio Tour"
     };
-    audioTitle.textContent = trackTitles[track] || "Audio Tour";
 
-    // Update audio src dynamically if you have more audio files for other
-    // tracks Here, only intro.mp3 is used. To extend, add those files and set
-    // src accordingly.
-    audioElement.src = this.audioTracks[track];
+    if (audioTitle) {
+      audioTitle.textContent = trackTitles[track] || "Audio Tour";
+    }
 
-    // Load and play
-    audioElement.load();
-    audioElement.play()
-        .then(() => { playPauseBtn.textContent = '⏸️'; })
-        .catch(err => { console.error("Audio playback failed:", err); });
+    // Stop current audio if playing
+    if (this.currentAudio && !this.currentAudio.paused) {
+      this.currentAudio.pause();
+    }
 
-    // When audio ends, reset play button
-    audioElement.onended = () => { playPauseBtn.textContent = '▶️'; };
+    // Set new audio source
+    if (this.audioTracks[track]) {
+      audioElement.src = this.audioTracks[track];
+      this.currentAudio = audioElement;
+
+      // Load and play
+      audioElement.load();
+      audioElement.play()
+          .then(() => {
+            if (playPauseBtn)
+              playPauseBtn.textContent = '⏸️';
+          })
+          .catch(err => { console.error("Audio playback failed:", err); });
+
+      // When audio ends, reset play button
+      audioElement.onended = () => {
+        if (playPauseBtn)
+          playPauseBtn.textContent = '▶️';
+      };
+    }
   }
 
   toggleAudioPlayback() {
     const audioElement = document.getElementById('audio-element');
     const playPauseBtn = document.getElementById('play-pause-btn');
 
+    if (!audioElement || !playPauseBtn)
+      return;
+
     if (audioElement.paused) {
-      audioElement.play();
-      playPauseBtn.textContent = '⏸️';
+      audioElement.play()
+          .then(() => { playPauseBtn.textContent = '⏸️'; })
+          .catch(err => { console.error("Audio play failed:", err); });
     } else {
       audioElement.pause();
       playPauseBtn.textContent = '▶️';
@@ -468,44 +568,58 @@ class AncientUniversitiesApp {
     const audioElement = document.getElementById('audio-element');
     const playPauseBtn = document.getElementById('play-pause-btn');
 
-    audioElement.pause();
-    audioElement.currentTime = 0;
-    audioPlayer.classList.add('hidden');
-    playPauseBtn.textContent = '▶️';
+    if (audioElement) {
+      audioElement.pause();
+      audioElement.currentTime = 0;
+    }
+
+    if (audioPlayer) {
+      audioPlayer.classList.add('hidden');
+    }
+
+    if (playPauseBtn) {
+      playPauseBtn.textContent = '▶️';
+    }
+
     this.audioTourActive = false;
+    this.currentAudio = null;
   }
 
-  setupQuiz() {
-    this.renderQuizQuestion();
-
-    document.querySelectorAll('.quiz-option').forEach(option => {
-      option.addEventListener('click',
-                              (e) => { this.handleQuizAnswer(e.target); });
-    });
-  }
+  setupQuiz() { this.renderQuizQuestion(); }
 
   renderQuizQuestion() {
+    if (this.currentQuizQuestion >= this.quizData.length)
+      return;
+
     const questionData = this.quizData[this.currentQuizQuestion];
     const questionText = document.getElementById('question-text');
     const options = document.querySelectorAll('.quiz-option');
     const progressFill = document.querySelector('.progress-fill');
     const progressText = document.querySelector('.progress-text');
 
-    if (questionData) {
+    if (questionData && questionText) {
       questionText.textContent = questionData.question;
+
       options.forEach((option, index) => {
-        option.textContent = questionData.options[index];
-        option.dataset.answer =
-            index === questionData.correct ? 'correct' : 'wrong';
-        option.classList.remove('correct', 'incorrect');
-        option.disabled = false;
+        if (questionData.options[index]) {
+          option.textContent = questionData.options[index];
+          option.dataset.answer =
+              index === questionData.correct ? 'correct' : 'wrong';
+          option.classList.remove('correct', 'incorrect');
+          option.disabled = false;
+        }
       });
 
-      const progress =
-          ((this.currentQuizQuestion + 1) / this.quizData.length) * 100;
-      progressFill.style.width = `${progress}%`;
-      progressText.textContent =
-          `Question ${this.currentQuizQuestion + 1} of ${this.quizData.length}`;
+      if (progressFill) {
+        const progress =
+            ((this.currentQuizQuestion + 1) / this.quizData.length) * 100;
+        progressFill.style.width = `${progress}%`;
+      }
+
+      if (progressText) {
+        progressText.textContent = `Question ${
+            this.currentQuizQuestion + 1} of ${this.quizData.length}`;
+      }
     }
   }
 
@@ -543,16 +657,21 @@ class AncientUniversitiesApp {
     const finalScore = document.getElementById('final-score');
     const resultIcon = document.querySelector('.result-icon');
 
-    quizQuestion.classList.add('hidden');
-    quizResult.classList.remove('hidden');
-    finalScore.textContent = this.quizScore;
+    if (quizQuestion)
+      quizQuestion.classList.add('hidden');
+    if (quizResult)
+      quizResult.classList.remove('hidden');
+    if (finalScore)
+      finalScore.textContent = this.quizScore;
 
-    if (this.quizScore >= 4) {
-      resultIcon.textContent = '🏆';
-    } else if (this.quizScore >= 3) {
-      resultIcon.textContent = '🎉';
-    } else {
-      resultIcon.textContent = '📚';
+    if (resultIcon) {
+      if (this.quizScore >= 4) {
+        resultIcon.textContent = '🏆';
+      } else if (this.quizScore >= 3) {
+        resultIcon.textContent = '🎉';
+      } else {
+        resultIcon.textContent = '📚';
+      }
     }
   }
 
@@ -563,113 +682,31 @@ class AncientUniversitiesApp {
     const quizQuestion = document.querySelector('.quiz-question');
     const quizResult = document.querySelector('.quiz-result');
 
-    quizQuestion.classList.remove('hidden');
-    quizResult.classList.add('hidden');
+    if (quizQuestion)
+      quizQuestion.classList.remove('hidden');
+    if (quizResult)
+      quizResult.classList.add('hidden');
 
     this.renderQuizQuestion();
   }
 
   setupModals() {
-    this.createDynamicModal('scholar-modal');
-    this.createDynamicModal('timeline-modal');
-    this.createDynamicModal('architectural-modal');
-    this.createDynamicModal('explore-modal');
-  }
-
-  createDynamicModal(modalId) {
-    if (document.getElementById(modalId))
-      return;
-
-    const modal = document.createElement('div');
-    modal.id = modalId;
-    modal.className = 'modal';
-    modal.innerHTML = `
-            <div class="modal-content enhanced">
-                <span class="close">&times;</span>
-                <div class="modal-header">
-                    <div class="modal-avatar">
-                        <span class="avatar-icon">📜</span>
-                    </div>
-                    <div class="modal-title">
-                        <h3 id="${modalId}-title">Title</h3>
-                        <span id="${modalId}-subtitle">Subtitle</span>
-                    </div>
-                </div>
-                <div class="modal-body" id="${modalId}-body">
-                    <p>Content goes here...</p>
-                </div>
-            </div>
-        `;
-
-    document.body.appendChild(modal);
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        this.closeModal(modalId);
-      }
-    });
-
-    modal.querySelector('.close').addEventListener(
-        'click', () => { this.closeModal(modalId); });
-  }
-
-  showScholarModal(scholarKey) {
-    const scholar = this.scholarData[scholarKey];
-    if (!scholar)
-      return;
-
-    const modal = document.getElementById('scholar-modal');
-    const title = document.getElementById('scholar-modal-title');
-    const subtitle = document.getElementById('scholar-modal-subtitle');
-    const body = document.getElementById('scholar-modal-body');
-    const avatar = modal.querySelector('.avatar-icon');
-
-    title.textContent = scholar.name;
-    subtitle.textContent = scholar.field;
-    avatar.textContent = scholar.avatar;
-
-    body.innerHTML = `
-            <div class="scholar-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker">🎓</div>
-                    <div class="timeline-content">
-                        <h4>Education</h4>
-                        <p>${scholar.education}</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">⭐</div>
-                    <div class="timeline-content">
-                        <h4>Major Achievement</h4>
-                        <p>${scholar.achievement}</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">🌟</div>
-                    <div class="timeline-content">
-                        <h4>Legacy</h4>
-                        <p>${scholar.legacy}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-
-    this.showModal('scholar-modal');
+    // Modal setup is now handled dynamically in showInfoModal
   }
 
   setupPopovers() {
-    const popover = document.getElementById('popover');
+    let popover = document.getElementById('popover');
     if (!popover) {
       const popoverEl = document.createElement('div');
       popoverEl.id = 'popover';
       popoverEl.className = 'popover';
       popoverEl.innerHTML = `
-                <div class="popover-content">
-                    <h4 id="popover-title">Title</h4>
-                    <p id="popover-text">Content</p>
-                </div>
-                <div class="popover-arrow"></div>
-            `;
+        <div class="popover-content">
+          <h4 id="popover-title">Title</h4>
+          <p id="popover-text">Content</p>
+        </div>
+        <div class="popover-arrow"></div>
+      `;
       document.body.appendChild(popoverEl);
     }
   }
@@ -683,20 +720,31 @@ class AncientUniversitiesApp {
     const title = document.getElementById('popover-title');
     const text = document.getElementById('popover-text');
 
+    if (!popover || !title || !text)
+      return;
+
     title.textContent = trivia.title;
     text.textContent = trivia.content;
 
     const rect = target.getBoundingClientRect();
     popover.style.display = 'block';
-    popover.style.left =
-        `${rect.left + rect.width / 2 - popover.offsetWidth / 2}px`;
-    popover.style.top = `${rect.top - popover.offsetHeight - 10}px`;
+
+    // Calculate position
+    const popoverRect = popover.getBoundingClientRect();
+    const left = rect.left + rect.width / 2 - popoverRect.width / 2;
+    const top = rect.top - popoverRect.height - 10;
+
+    popover.style.left = `${
+        Math.max(
+            10, Math.min(left, window.innerWidth - popoverRect.width - 10))}px`;
+    popover.style.top = `${Math.max(10, top)}px`;
   }
 
   hidePopover() {
     const popover = document.getElementById('popover');
-    if (popover)
+    if (popover) {
       popover.style.display = 'none';
+    }
   }
 
   setupScrollEffects() {
@@ -717,10 +765,31 @@ class AncientUniversitiesApp {
   }
 
   createScrollToTopButton() {
+    // Check if button already exists
+    if (document.querySelector('.scroll-to-top'))
+      return;
+
     const scrollBtn = document.createElement('button');
     scrollBtn.className = 'scroll-to-top';
     scrollBtn.innerHTML = '↑';
     scrollBtn.setAttribute('aria-label', 'Scroll to top');
+    scrollBtn.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 80px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: #007bff;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    `;
 
     scrollBtn.addEventListener(
         'click', () => { window.scrollTo({top : 0, behavior : 'smooth'}); });
@@ -766,37 +835,64 @@ class AncientUniversitiesApp {
     if (!hasVisited) {
       setTimeout(() => { this.showGreetingModal(); }, 1000);
       localStorage.setItem('hasVisited', 'true');
+    } else {
+      // Load saved user name
+      const savedName = localStorage.getItem('userName');
+      if (savedName) {
+        this.userName = savedName;
+        this.personalizeExperience();
+      }
     }
   }
 
   showGreetingModal() {
+    // Remove existing greeting modal if it exists
+    const existingModal = document.getElementById('greeting-modal');
+    if (existingModal) {
+      existingModal.remove();
+    }
+
     const modal = document.createElement('div');
     modal.id = 'greeting-modal';
     modal.className = 'modal';
+    modal.style.display = 'block';
     modal.innerHTML = `
-            <div class="modal-content greeting">
-                <div class="greeting-header">
-                    <div class="greeting-avatar">👨‍🎓</div>
-                    <h3>Welcome, Future Scholar!</h3>
-                </div>
-                <div class="greeting-body">
-                    <p>What name would you like our ancient scholars to call you?</p>
-                    <input type="text" id="user-name" placeholder="Enter your name" class="form-control">
-                    <div style="display: flex; gap: 12px; margin-top: 16px;">
-                        <button class="btn btn--primary" onclick="app.setUserName()">Begin Journey</button>
-                        <button class="btn btn--outline" onclick="app.skipGreeting()">Skip</button>
-                    </div>
-                </div>
-            </div>
-        `;
+      <div class="modal-content greeting">
+        <div class="greeting-header">
+          <div class="greeting-avatar">👨‍🎓</div>
+          <h3>Welcome, Future Scholar!</h3>
+        </div>
+        <div class="greeting-body">
+          <p>What name would you like our ancient scholars to call you?</p>
+          <input type="text" id="user-name" placeholder="Enter your name" class="form-control" style="margin: 16px 0; padding: 8px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+          <div style="display: flex; gap: 12px; margin-top: 16px;">
+            <button class="btn btn--primary" onclick="window.app.setUserName()">Begin Journey</button>
+            <button class="btn btn--outline" onclick="window.app.skipGreeting()">Skip</button>
+          </div>
+        </div>
+      </div>
+    `;
 
     document.body.appendChild(modal);
-    this.showModal('greeting-modal');
+    document.body.style.overflow = 'hidden';
+
+    // Focus on input
+    const nameInput = document.getElementById('user-name');
+    if (nameInput) {
+      setTimeout(() => nameInput.focus(), 100);
+
+      // Allow Enter key to submit
+      nameInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          this.setUserName();
+        }
+      });
+    }
   }
 
   setUserName() {
     const nameInput = document.getElementById('user-name');
-    const name = nameInput.value.trim();
+    const name = nameInput ? nameInput.value.trim() : '';
 
     if (name) {
       this.userName = name;
@@ -804,10 +900,18 @@ class AncientUniversitiesApp {
       this.personalizeExperience();
     }
 
-    this.closeModal('greeting-modal');
+    this.closeGreetingModal();
   }
 
-  skipGreeting() { this.closeModal('greeting-modal'); }
+  skipGreeting() { this.closeGreetingModal(); }
+
+  closeGreetingModal() {
+    const modal = document.getElementById('greeting-modal');
+    if (modal) {
+      modal.remove();
+    }
+    document.body.style.overflow = 'auto';
+  }
 
   personalizeExperience() {
     if (this.userName) {
@@ -827,28 +931,6 @@ class AncientUniversitiesApp {
       const targetPosition = section.offsetTop - navbarHeight;
       window.scrollTo({top : targetPosition, behavior : 'smooth'});
     }
-  }
-
-  showModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-  }
-
-  closeAllModals() {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => { modal.style.display = 'none'; });
-    document.body.style.overflow = 'auto';
   }
 
   animateCounter(element) {
@@ -891,24 +973,6 @@ class AncientUniversitiesApp {
       }
     };
   }
-
-  // Additional methods for new features
-  openWorldMap() { this.scrollToSection('world-map-section'); }
-
-  showExploreModal(topic) {
-    console.log('Showing explore modal for:', topic);
-    // Implement modal content/population as needed
-  }
-
-  showTimelineModal(era) {
-    console.log('Showing timeline modal for:', era);
-    // Implement modal content/population as needed
-  }
-
-  showArchitecturalModal(location) {
-    console.log('Showing architectural modal for:', location);
-    // Implement modal content/population as needed
-  }
 }
 
 // Initialize the app when DOM is loaded
@@ -924,10 +988,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Global functions for backward compatibility
-window.scrollToSection = (sectionId) => window.app.scrollToSection(sectionId);
-window.showModal = (modalId) => window.app.showModal(modalId);
-window.closeModal = (modalId) => window.app.closeModal(modalId);
-window.restartQuiz = () => window.app.restartQuiz();
+window.scrollToSection = (sectionId) => {
+  if (window.app) {
+    window.app.scrollToSection(sectionId);
+  }
+};
+
+window.restartQuiz = () => {
+  if (window.app) {
+    window.app.restartQuiz();
+  }
+};
 
 // Remove loading screen after content loads
 window.addEventListener('load', () => {
@@ -937,32 +1008,51 @@ window.addEventListener('load', () => {
     setTimeout(() => loadingScreen.remove(), 1000);
   }
 
-  // Optional ambient audio setup (adjust path & file if you want ambient music)
-  const ambientAudio = new Audio('assets/audio/ambient_sitar.mp3');
-  ambientAudio.loop = true;
-  ambientAudio.volume = 0.2;
+  // Optional ambient audio setup
+  try {
+    const ambientAudio = new Audio('assets/audio/ambient_sitar.mp3');
+    ambientAudio.loop = true;
+    ambientAudio.volume = 0.2;
 
-  const toggleAmbientBtn = document.createElement('button');
-  toggleAmbientBtn.textContent = '🎶 Toggle Music';
-  toggleAmbientBtn.className = 'btn btn--sm btn--outline';
-  toggleAmbientBtn.style.position = 'fixed';
-  toggleAmbientBtn.style.bottom = '20px';
-  toggleAmbientBtn.style.right = '20px';
-  toggleAmbientBtn.style.zIndex = 1000;
-
-  document.body.appendChild(toggleAmbientBtn);
-  let playing = false;
-
-  toggleAmbientBtn.addEventListener('click', () => {
-    if (!playing) {
-      ambientAudio.play();
-      toggleAmbientBtn.textContent = '🔇 Stop Music';
-    } else {
-      ambientAudio.pause();
+    // Check if ambient music button already exists
+    if (!document.getElementById('ambient-music-btn')) {
+      const toggleAmbientBtn = document.createElement('button');
+      toggleAmbientBtn.id = 'ambient-music-btn';
       toggleAmbientBtn.textContent = '🎶 Toggle Music';
+      toggleAmbientBtn.className = 'btn btn--sm btn--outline';
+      toggleAmbientBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        padding: 8px 12px;
+        border: 1px solid #007bff;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 4px;
+        cursor: pointer;
+      `;
+
+      document.body.appendChild(toggleAmbientBtn);
+      let playing = false;
+
+      toggleAmbientBtn.addEventListener('click', () => {
+        if (!playing) {
+          ambientAudio.play()
+              .then(() => {
+                toggleAmbientBtn.textContent = '🔇 Stop Music';
+                playing = true;
+              })
+              .catch(err => { console.error('Audio play failed:', err); });
+        } else {
+          ambientAudio.pause();
+          toggleAmbientBtn.textContent = '🎶 Toggle Music';
+          playing = false;
+        }
+      });
     }
-    playing = !playing;
-  });
+  } catch (error) {
+    console.error('Ambient audio setup failed:', error);
+  }
 });
 
 // Nalanda Story Slider
@@ -970,9 +1060,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const slides = document.querySelectorAll('.story-slide');
   const prevBtn = document.querySelector('.story-prev');
   const nextBtn = document.querySelector('.story-next');
-  let current = 0;
+
   if (slides.length === 0)
     return;
+
+  let current = 0;
 
   function showSlide(index) {
     slides.forEach(
@@ -981,13 +1073,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   showSlide(current);
 
-  prevBtn.addEventListener('click', function() {
-    current = (current - 1 + slides.length) % slides.length;
-    showSlide(current);
-  });
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    });
+  }
 
-  nextBtn.addEventListener('click', function() {
-    current = (current + 1) % slides.length;
-    showSlide(current);
-  });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    });
+  }
 });
