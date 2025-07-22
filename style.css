@@ -1971,7 +1971,7 @@ html {
 
 /* Quiz section */
 .quiz-section {
-  background: rgba(246, 232, 214, 0.96); /* papyrus/ivory */
+  /*background: rgba(246, 232, 214, 0.96); /* papyrus/ivory */*/
   border-radius: 18px;
   box-shadow: 0 4px 32px rgba(180, 117, 60, 0.07);
   border: 1.5px solid #e0c097;
@@ -2576,7 +2576,7 @@ h1, h2, h3, h4 {
   flex-wrap: wrap;
 }
 .vlog-image {
-  max-width: 500px;
+  max-width: 300px;
   border-radius: .8rem;
   box-shadow: 0 2px 8px rgba(120,90,30,0.11);
   margin-bottom: .6rem;
@@ -2594,4 +2594,9 @@ h1, h2, h3, h4 {
   .vlog-content { flex-direction: column; gap: .7rem; }
   .vlog-timeline { gap: 1rem; }
   .vlog-moment { padding-left: .7rem; }
+}
+
+.site-footer {
+    text-align: center;
+    font-size: 18px;
 }
