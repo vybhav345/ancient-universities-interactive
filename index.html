@@ -3,19 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the rich heritage of ancient Indian universities - Takshashila and Nalanda, the world's first centers of higher learning.">
+    <meta name="keywords" content="Takshashila, Nalanda, ancient universities, Indian education, Buddhist learning, historical education">
+    <meta name="author" content="Vaibhav Gupta">
+    <meta property="og:title" content="Ancient Indian Universities - Takshashila & Nalanda">
+    <meta property="og:description" content="Journey through history's greatest centers of learning">
+    <meta property="og:type" content="website">
     <title>Ancient Indian Universities - Takshashila & Nalanda</title>
+    
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
+
 <body>
 
-<div id="loading-screen">
-    <div class="loader">
-        <span class="lotus">🪷</span>
-        <h3>Loading Ancient Wisdom...</h3>
+   <!-- Loading Screen -->
+    <div id="loading-screen" aria-hidden="true">
+        <div class="loader">
+            <span class="lotus" role="img" aria-label="Lotus flower">🪷</span>
+            <h3>Loading Ancient Wisdom...</h3>
+        </div>
     </div>
-</div>
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Theme Toggle -->
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
@@ -23,54 +37,61 @@
     </button>
 
     <!-- Enhanced Navigation -->
-    <nav class="navbar" role="navigation">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav-brand">
-                <span class="lotus-icon">🪷</span>
-                <h3>Ancient Universities</h3>
+                <span class="lotus-icon" role="img" aria-label="Lotus">🪷</span>
+                <h1>Ancient Universities</h1>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">🏛️ Home</a></li>
-                <li><a href="#takshashila" class="nav-link">📜 Takshashila</a></li>
-                <li><a href="#nalanda" class="nav-link">📜 Nalanda</a></li>
-                <li><a href="#timeline" class="nav-link">⏳ Milestones</a></li>
-                <li><a href="#quiz" class="nav-link">🧠 Quiz</a></li>
-                <li><a href="#legacy" class="nav-link">🌟 Legacy</a></li>  
+            
+  <!--           <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button> -->
+            
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="#home" class="nav-link" role="menuitem">🏛️ Home</a></li>
+                <li role="none"><a href="#takshashila" class="nav-link" role="menuitem">📜 Takshashila</a></li>
+                <li role="none"><a href="#nalanda" class="nav-link" role="menuitem">📜 Nalanda</a></li>
+                <li role="none"><a href="#timeline" class="nav-link" role="menuitem">⏳ Timeline</a></li>
+                <li role="none"><a href="#quiz" class="nav-link" role="menuitem">🧠 Quiz</a></li>
+                <li role="none"><a href="#legacy" class="nav-link" role="menuitem">🌟 Legacy</a></li>  
             </ul>
+            
             <div class="nav-controls">
-                <button id="audio-tour-btn" class="btn btn--sm btn--outline">🎵 Audio Tour</button>
+                <button id="audio-tour-btn" class="btn btn--sm btn--outline" aria-label="Start audio tour">
+                    🎵 Audio Tour
+                </button>
             </div>
         </div>
     </nav>
 
-
     <!-- Audio Tour Player -->
-    <div id="audio-player" class="audio-player hidden">
+    <aside id="audio-player" class="audio-player hidden" aria-label="Audio tour player">
         <div class="audio-controls">
-            <button id="play-pause-btn">▶️</button>
+            <button id="play-pause-btn" aria-label="Play or pause audio">▶️</button>
             <span id="audio-title">Introduction</span>
-            <button id="close-audio">✕</button>
+            <button id="close-audio" aria-label="Close audio player">✕</button>
         </div>
-        <audio id="audio-element" preload="none">
+        <audio id="audio-element" preload="none" aria-label="Audio tour content">
             <source src="assets/audio/intro.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
         </audio>
-    </div>
+    </aside>
 
-    <main>
+<main id="main-content">
         <!-- Enhanced Hero Section -->
         <section id="home" class="hero">
-            <video autoplay muted loop playsinline class="hero-video">
-                <source src=assets/video/intro.mp4 type="video/mp4" />
+            <video autoplay muted loop playsinline class="hero-video" aria-hidden="true">
+                <source src="assets/video/intro.mp4" type="video/mp4">
             </video>
-            <div class="hero-overlay"></div>
-            <div class="hero-pattern"></div>
+            <div class="hero-overlay" aria-hidden="true"></div>
+            <div class="hero-pattern" aria-hidden="true"></div>
+            
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-<!--                         <div class="hero-badge">
-                            <span class="badge-icon">🏆</span>
-                            <span>First in the World</span>
-                        </div> -->
                         <h1 class="hero-title">Ancient India's Educational Marvels</h1>
                         <p class="hero-subtitle">Where Knowledge Knew No Boundaries</p>
                         <p class="hero-description">
@@ -78,31 +99,28 @@
                             revolutionizing education and shaping the intellectual foundations of the world.
                         </p>
                         <div class="hero-buttons">
-                            <button class="btn btn--primary btn--lg">🚀 Begin Journey</button>
+                            <button class="btn btn--primary btn--lg" onclick="document.getElementById('takshashila').scrollIntoView()">
+                                🚀 Begin Journey
+                            </button>
                         </div>
                     </div>
-<!--                     <div class="hero-visual">
-                        <div class="hero-card">
-                            <div class="card-icon">🏛️</div>
-                            <h4>2,500+ Years of Excellence</h4>
-                            <p>Continuous tradition of learning that shaped civilizations</p>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </section>
 
-        <!-- Quick Comparison Cards -->
-        <section class="comparison-quick">
+<!-- Quick Comparison Cards -->
+        <section class="comparison-quick" aria-labelledby="comparison-title">
             <div class="container">
+                <h2 id="comparison-title" class="sr-only">University Comparison</h2>
                 <div class="comparison-grid">
-                    <div class="comparison-card takshashila-card" data-university="takshashila">
-                        <div class="card-header">
-                            <span class="university-icon">📜</span>
+                    <article class="comparison-card takshashila-card" data-university="takshashila">
+                        <header class="card-header">
+                            <span class="university-icon" role="img" aria-label="Scroll">📜</span>
                             <h3>Takshashila</h3>
                             <span class="era-badge">6th century BCE - 5th century CE</span>
-                        </div>
-                        <div class="card-stats">
+                        </header>
+                        
+                        <div class="card-stats" role="group" aria-label="Takshashila statistics">
                             <div class="stat-item">
                                 <span class="stat-number">68</span>
                                 <span class="stat-label">Courses</span>
@@ -112,23 +130,25 @@
                                 <span class="stat-label">Pass Rate</span>
                             </div>
                         </div>
+                        
                         <div class="card-highlight">
-                            <span class="highlight-tag">🌟 First in the World</span>
+                            <span class="highlight-tag">🌟 World's First</span>
                             <p>World's first university</p>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="vs-divider">
+                    <div class="vs-divider" aria-hidden="true">
                         <span class="vs-text">AND</span>
                     </div>
 
-                    <div class="comparison-card nalanda-card" data-university="nalanda">
-                        <div class="card-header">
-                            <span class="university-icon">📜</span>
+                    <article class="comparison-card nalanda-card" data-university="nalanda">
+                        <header class="card-header">
+                            <span class="university-icon" role="img" aria-label="Scroll">📜</span>
                             <h3>Nalanda</h3>
                             <span class="era-badge">5th century CE - 12th century CE</span>
-                        </div>
-                        <div class="card-stats">
+                        </header>
+                        
+                        <div class="card-stats" role="group" aria-label="Nalanda statistics">
                             <div class="stat-item">
                                 <span class="stat-number">10K</span>
                                 <span class="stat-label">Students</span>
@@ -138,30 +158,31 @@
                                 <span class="stat-label">Books</span>
                             </div>
                         </div>
+                        
                         <div class="card-highlight">
-                            <span class="highlight-tag">🌟 First in the World</span>
+                            <span class="highlight-tag">🌟 First Residential</span>
                             <p>First residential university</p>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- Enhanced Takshashila Section -->
-        <section id="takshashila" class="university-section takshashila-section">
+           <!-- Enhanced Takshashila Section -->
+        <section id="takshashila" class="university-section takshashila-section" aria-labelledby="takshashila-title">
             <div class="container">
-                <div class="section-header">
+                <header class="section-header">
                     <div class="section-badge">
-                        <span class="badge-icon">📜</span>
+                        <span class="badge-icon" role="img" aria-label="Scroll">📜</span>
                         <span>The Pioneer</span>
                     </div>
-                    <h2 class="section-title">Takshashila - World's First University</h2>
+                    <h2 id="takshashila-title" class="section-title">Takshashila - World's First University</h2>
                     <p class="section-subtitle">Where Knowledge Began Its Journey</p>
-                </div>
+                </header>
 
                 <!-- Why It Matters -->
                 <div class="why-matters-card">
-                    <div class="why-icon">💡</div>
+                    <div class="why-icon" role="img" aria-label="Light bulb">💡</div>
                     <div class="why-content">
                         <h3>Why It Matters</h3>
                         <p>Takshashila established the very concept of higher education, creating the template for universities that would follow centuries later.</p>
@@ -170,42 +191,44 @@
 
                 <!-- Explore Cards -->
                 <div class="explore-cards">
-                    <div class="explore-card" data-topic="admission">
-                        <div class="card-icon">🎯</div>
-                        <h3>Rigors of Admission</h3>
+                    <article class="explore-card" data-topic="admission">
+                        <div class="card-icon" role="img" aria-label="Target">🎯</div>
+                        <h3>Rigorous Admission</h3>
                         <p>Only the most dedicated scholars could pass the legendary entrance examinations...</p>
                         <button class="btn btn--sm btn--primary">Discover More</button>
-                    </div>
-                    <div class="explore-card" data-topic="curriculum">
-                        <div class="card-icon">📚</div>
+                    </article>
+                    
+                    <article class="explore-card" data-topic="curriculum">
+                        <div class="card-icon" role="img" aria-label="Books">📚</div>
                         <h3>Revolutionary Curriculum</h3>
                         <p>68 different courses spanning medicine, politics, arts, and sciences...</p>
                         <button class="btn btn--sm btn--primary">Explore Subjects</button>
-                    </div>
-                    <div class="explore-card" data-topic="scholars">
-                        <div class="card-icon">👨‍🎓</div>
+                    </article>
+                    
+                    <article class="explore-card" data-topic="scholars">
+                        <div class="card-icon" role="img" aria-label="Graduate">👨‍🎓</div>
                         <h3>Legendary Scholars</h3>
                         <p>Meet the brilliant minds who shaped civilizations...</p>
                         <button class="btn btn--sm btn--primary">Meet Scholars</button>
-                    </div>
+                    </article>
                 </div>
 
-                <!-- Did You Know Popovers -->
+                <!-- Did You Know Section -->
                 <div class="did-you-know-section">
                     <h3>Did You Know?</h3>
-                    <div class="trivia-grid">
-                        <div class="trivia-item" data-popover="jivaka-test">
-                            <span class="trivia-icon">🌿</span>
+                    <div class="trivia-grid" role="group" aria-label="Interesting facts">
+                        <button class="trivia-item" data-popover="jivaka-test" aria-describedby="popover">
+                            <span class="trivia-icon" role="img" aria-label="Herb">🌿</span>
                             <span>Jivaka's Impossible Test</span>
-                        </div>
-                        <div class="trivia-item" data-popover="silk-road">
-                            <span class="trivia-icon">🛤️</span>
+                        </button>
+                        <button class="trivia-item" data-popover="silk-road" aria-describedby="popover">
+                            <span class="trivia-icon" role="img" aria-label="Road">🛤️</span>
                             <span>Silk Road Connection</span>
-                        </div>
-                        <div class="trivia-item" data-popover="international">
-                            <span class="trivia-icon">🌍</span>
+                        </button>
+                        <button class="trivia-item" data-popover="international" aria-describedby="popover">
+                            <span class="trivia-icon" role="img" aria-label="Globe">🌍</span>
                             <span>International Students</span>
-                        </div>
+                        </button>
                     </div>
                 </div>
 
@@ -213,9 +236,9 @@
                 <div class="scholars-section">
                     <h3>Meet the Legends</h3>
                     <div class="scholars-grid">
-                        <div class="scholar-card enhanced" data-scholar="panini">
+                        <article class="scholar-card enhanced" data-scholar="panini">
                             <div class="scholar-avatar">
-                                <span class="avatar-icon">📜</span>
+                                <span class="avatar-icon" role="img" aria-label="Scroll">📜</span>
                             </div>
                             <div class="scholar-info">
                                 <h4>Panini</h4>
@@ -227,11 +250,11 @@
                                 </div>
                             </div>
                             <button class="scholar-learn-more">Learn More</button>
-                        </div>
+                        </article>
 
-                        <div class="scholar-card enhanced" data-scholar="chanakya">
+                        <article class="scholar-card enhanced" data-scholar="chanakya">
                             <div class="scholar-avatar">
-                                <span class="avatar-icon">⚖️</span>
+                                <span class="avatar-icon" role="img" aria-label="Scales of justice">⚖️</span>
                             </div>
                             <div class="scholar-info">
                                 <h4>Chanakya</h4>
@@ -243,11 +266,11 @@
                                 </div>
                             </div>
                             <button class="scholar-learn-more">Learn More</button>
-                        </div>
+                        </article>
 
-                        <div class="scholar-card enhanced" data-scholar="jivaka">
+                        <article class="scholar-card enhanced" data-scholar="jivaka">
                             <div class="scholar-avatar">
-                                <span class="avatar-icon">⚕️</span>
+                                <span class="avatar-icon" role="img" aria-label="Medical symbol">⚕️</span>
                             </div>
                             <div class="scholar-info">
                                 <h4>Jivaka</h4>
@@ -259,23 +282,23 @@
                                 </div>
                             </div>
                             <button class="scholar-learn-more">Learn More</button>
-                        </div>
+                        </article>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Enhanced Nalanda Section -->
-        <section id="nalanda" class="university-section nalanda-section">
+        <section id="nalanda" class="university-section nalanda-section" aria-labelledby="nalanda-title">
             <div class="container">
-                <div class="section-header">
+                <header class="section-header">
                     <div class="section-badge">
-                        <span class="badge-icon">📜</span>
+                        <span class="badge-icon" role="img" aria-label="Scroll">📜</span>
                         <span>The Pinnacle</span>
                     </div>
-                    <h2 class="section-title">Nalanda - The World's Greatest University</h2>
+                    <h2 id="nalanda-title" class="section-title">Nalanda - The World's Greatest University</h2>
                     <p class="section-subtitle">Where Knowledge Reached Its Zenith</p>
-                </div>
+                </header>
 
                 <!-- Architectural Explorer -->
                 <div class="architectural-explorer">
@@ -417,12 +440,12 @@
 
                 <!-- Library Story -->
                 <div class="library-story-enhanced">
-                    <div class="story-header">
-                        <span class="story-icon">📚</span>
+                    <header class="story-header">
+                        <span class="story-icon" role="img" aria-label="Books">📚</span>
                         <h3>The Legendary Library</h3>
-                    </div>
+                    </header>
                     <div class="story-content">
-                        <div class="story-stats">
+                        <div class="story-stats" role="group" aria-label="Library statistics">
                             <div class="story-stat">
                                 <span class="stat-number animated">9,000,000</span>
                                 <span class="stat-label">Manuscripts</span>
@@ -437,9 +460,10 @@
                             </div>
                         </div>
                         <p>The "Dharma Gunj" (Mountain of Truth) wasn't just a library—it was humanity's greatest treasure trove of knowledge.</p>
-                        </div>
                     </div>
                 </div>
+
+                <!-- Nalanda Vlog Section -->
                     <section id="nalanda-vlog" class="vlog-section">
                       <div class="section-header">
                         <h2 class="section-title">Nalanda Vlog: A Day in My Life as a Scholar!</h2>
@@ -562,65 +586,65 @@
 
                       </div>
                     </section>
-        </section>
+                </section>
 
-        <!-- Interactive Timeline -->
-        <section id="timeline" class="timeline-section">
+               <!-- Interactive Timeline -->
+        <section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">📅 Timeline of Excellence</h2>
+                <header class="section-header">
+                    <h2 id="timeline-title" class="section-title">📅 Timeline of Excellence</h2>
                     <p class="section-subtitle">Click on any era to explore</p>
-                </div>
+                </header>
                 
-                <div class="interactive-timeline">
+                <div class="interactive-timeline" role="region" aria-label="Historical timeline">
                     <div class="timeline-track">
-                        <div class="timeline-era" data-era="takshashila-foundation" data-year="600 BCE">
-                            <div class="era-marker">🏛️</div>
+                        <button class="timeline-era" data-era="takshashila-foundation" data-year="600 BCE" aria-describedby="era-info">
+                            <div class="era-marker" role="img" aria-label="University building">🏛️</div>
                             <div class="era-info">
                                 <h4>Takshashila Founded</h4>
-                                <span class="era-year">600 BCE</span>
+                                <time class="era-year">600 BCE</time>
                             </div>
-                        </div>
+                        </button>
                         
-                        <div class="timeline-era" data-era="panini-grammar" data-year="400 BCE">
-                            <div class="era-marker">📜</div>
+                        <button class="timeline-era" data-era="panini-grammar" data-year="400 BCE">
+                            <div class="era-marker" role="img" aria-label="Scroll">📜</div>
                             <div class="era-info">
                                 <h4>Panini's Grammar</h4>
-                                <span class="era-year">400 BCE</span>
+                                <time class="era-year">400 BCE</time>
                             </div>
-                        </div>
+                        </button>
                         
-                        <div class="timeline-era" data-era="chanakya-era" data-year="350 BCE">
-                            <div class="era-marker">⚖️</div>
+                        <button class="timeline-era" data-era="chanakya-era" data-year="350 BCE">
+                            <div class="era-marker" role="img" aria-label="Scales">⚖️</div>
                             <div class="era-info">
                                 <h4>Chanakya's Arthashastra</h4>
-                                <span class="era-year">350 BCE</span>
+                                <time class="era-year">350 BCE</time>
                             </div>
-                        </div>
+                        </button>
                         
-                        <div class="timeline-era" data-era="nalanda-foundation" data-year="427 CE">
-                            <div class="era-marker">🏛️</div>
+                        <button class="timeline-era" data-era="nalanda-foundation" data-year="427 CE">
+                            <div class="era-marker" role="img" aria-label="University">🏛️</div>
                             <div class="era-info">
                                 <h4>Nalanda Founded</h4>
-                                <span class="era-year">427 CE</span>
+                                <time class="era-year">427 CE</time>
                             </div>
-                        </div>
+                        </button>
                         
-                        <div class="timeline-era" data-era="xuanzang-visit" data-year="630 CE">
-                            <div class="era-marker">🇨🇳</div>
+                        <button class="timeline-era" data-era="xuanzang-visit" data-year="630 CE">
+                            <div class="era-marker" role="img" aria-label="China flag">🇨🇳</div>
                             <div class="era-info">
                                 <h4>Xuanzang's Visit</h4>
-                                <span class="era-year">630 CE</span>
+                                <time class="era-year">630 CE</time>
                             </div>
-                        </div>
+                        </button>
                         
-                        <div class="timeline-era" data-era="nalanda-destruction" data-year="1193 CE">
-                            <div class="era-marker">💥</div>
+                        <button class="timeline-era" data-era="nalanda-destruction" data-year="1193 CE">
+                            <div class="era-marker" role="img" aria-label="Explosion">💥</div>
                             <div class="era-info">
                                 <h4>Tragic Destruction</h4>
-                                <span class="era-year">1193 CE</span>
+                                <time class="era-year">1193 CE</time>
                             </div>
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -664,16 +688,16 @@
             </div>
         </section>
         
-        <!-- Quiz Section -->
-        <section id="quiz" class="quiz-section">
+                <!-- Quiz Section -->
+        <section id="quiz" class="quiz-section" aria-labelledby="quiz-title">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">🧠 Test Your Knowledge</h2>
+                <header class="section-header">
+                    <h2 id="quiz-title" class="section-title">🧠 Test Your Knowledge</h2>
                     <p class="section-subtitle">How much do you know about ancient universities?</p>
-                </div>
+                </header>
                 
-                <div class="quiz-container">
-                    <div class="quiz-progress">
+                <div class="quiz-container" role="region" aria-label="Knowledge quiz">
+                    <div class="quiz-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 0%"></div>
                         </div>
@@ -682,7 +706,7 @@
                     
                     <div class="quiz-question">
                         <h3 id="question-text">What was the pass rate for Takshashila's entrance exam?</h3>
-                        <div class="quiz-options">
+                        <div class="quiz-options" role="group" aria-labelledby="question-text">
                             <button class="quiz-option" data-answer="wrong">50%</button>
                             <button class="quiz-option" data-answer="correct">30%</button>
                             <button class="quiz-option" data-answer="wrong">70%</button>
@@ -690,15 +714,14 @@
                         </div>
                     </div>
                     
-                    <div class="quiz-result hidden">
-                        <div class="result-icon">🎉</div>
+                    <div class="quiz-result hidden" role="region" aria-live="polite">
+                        <div class="result-icon" role="img" aria-label="Celebration">🎉</div>
                         <h3>Excellent!</h3>
                         <p>You scored <span id="final-score">0</span> out of 5!</p>
                         <button class="btn btn--primary" onclick="restartQuiz()">Take Quiz Again</button>
                     </div>
                 </div>
             </div>
-        </section>
 
         <!-- Legacy Section -->
         <section id="legacy" class="legacy-section">
