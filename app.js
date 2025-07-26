@@ -43,8 +43,8 @@ class AncientUniversitiesApp {
 
     this.scholarData = {
       panini : {
-        name : "Panini",
-        field : "Grammar & Linguistics",
+        name : "पाणिनि (Panini)",
+        field : "व्याकरण एवं भाषाविज्ञान (Grammar & Linguistics)",
         avatar : "📜",
         education :
             "Studied at Takshashila under renowned grammarians, mastering Sanskrit and its nuances.",
@@ -54,8 +54,8 @@ class AncientUniversitiesApp {
             "His systematic approach to grammar inspired modern computational linguistics and remains unmatched in its precision."
       },
       chanakya : {
-        name : "Chanakya",
-        field : "Political Science & Economics",
+        name : "चाणक्य (Chanakya)",
+        field : "राजनीति शास्त्र एवं अर्थशास्त्र (Political Science & Economics)",
         avatar : "⚖️",
         education :
             "Graduated from Takshashila with expertise in politics, economics, and military strategy.",
@@ -65,8 +65,8 @@ class AncientUniversitiesApp {
             "His political theories influenced governance systems across Asia and continue to be studied in modern political science."
       },
       jivaka : {
-        name : "Jivaka",
-        field : "Medicine & Surgery",
+        name : "जीविका (Jivaka)",
+        field : "चिकित्सा एवं शल्य चिकित्सा (Medicine & Surgery)",
         avatar : "⚕️",
         education :
             "Completed 7 years of medical training at Takshashila, passing the legendary final examination.",
@@ -98,22 +98,23 @@ class AncientUniversitiesApp {
     this.exploreData = {
       admission : {
         icon : '🎯',
-        title : 'The Gates of Takshashila',
-        subtitle : 'A Legendary Entrance Exam',
+        title : 'तक्षशिला के द्वार (The Gates of Takshashila)',
+        subtitle : 'एक ऐतिहासिक प्रवेश परीक्षा (A Legendary Entrance Exam)',
         content :
             'Admission to Takshashila was notoriously difficult. Prospective students had to demonstrate profound knowledge and intellectual prowess to a council of scholars. The pass rate was a mere 30%, ensuring only the most dedicated minds entered its halls. This rigorous standard maintained its reputation as the premier center of learning.'
       },
       curriculum : {
         icon : '📚',
-        title : 'The 68 Subjects',
-        subtitle : 'A Comprehensive Curriculum',
+        title : '६८ विषय (The 68 Subjects)',
+        subtitle : 'एक व्यापक पाठ्यक्रम (A Comprehensive Curriculum)',
         content :
             'Takshashila offered a vast curriculum of 68 distinct subjects. These included the Vedas, grammar, philosophy, medicine (Ayurveda), surgery, archery, politics, warfare, astronomy, commerce, and even music and dance. This holistic approach to education was unparalleled in the ancient world.'
       },
       scholars : {
         icon : '👨‍🎓',
-        title : 'A Legacy of Legends',
-        subtitle : 'The Minds that Shaped an Era',
+        title : 'महान हस्तियों की विरासत (A Legacy of Legends)',
+        subtitle :
+            'वह महान बुद्धि जिन्‍होंने एक युग गढ़ा (The Minds that Shaped an Era)',
         content :
             'Takshashila was not just a university; it was a cradle of genius. Its alumni include figures like Panini, the father of grammar; Chanakya, the master political strategist; and Jivaka, the pioneer of medicine. These scholars and their works have left an indelible mark on history.'
       }
@@ -122,42 +123,42 @@ class AncientUniversitiesApp {
     this.timelineData = {
       'takshashila-foundation' : {
         icon : '🏛️',
-        title : 'The Dawn of an Era',
+        title : 'युग की शुरुआत (The Dawn of an Era)',
         subtitle : 'c. 600 BCE',
         content :
             'Takshashila is established, becoming what many historians consider the world\'s first university. It quickly becomes a beacon for scholars in various disciplines.'
       },
       'panini-grammar' : {
         icon : '📜',
-        title : 'Panini\'s Ashtadhyayi',
+        title : 'पाणिनि की अष्टाध्यायी (Panini\'s Ashtadhyayi)',
         subtitle : 'c. 400 BCE',
         content :
             'The grammarian Panini, an alumnus of Takshashila, composes the Ashtadhyayi. This masterpiece of 4,000 grammatical rules standardizes the Sanskrit language and becomes a foundational text for linguistics.'
       },
       'chanakya-era' : {
         icon : '⚖️',
-        title : 'Chanakya and the Mauryan Empire',
+        title : 'चाणक्य और मौर्य साम्राज्य (Chanakya and the Mauryan Empire)',
         subtitle : 'c. 350 BCE',
         content :
             'Chanakya (or Kautilya), a professor at Takshashila, authors the Arthashastra and mentors Chandragupta Maurya, leading to the establishment of the mighty Mauryan Empire.'
       },
       'nalanda-foundation' : {
         icon : '🏛️',
-        title : 'Nalanda is Born',
+        title : 'नालंदा की स्थापना (Nalanda is Founded)',
         subtitle : '427 CE',
         content :
             'Under the patronage of the Gupta Empire, Nalanda Mahavihara is founded. It evolves into the world\'s first great residential university, with vast libraries, dormitories, and lecture halls.'
       },
       'xuanzang-visit' : {
         icon : '🇨🇳',
-        title : 'Xuanzang\'s Journey',
+        title : 'ह्वेनसांग की यात्रा (Xuanzang\'s Journey)',
         subtitle : '630 CE',
         content :
             'The Chinese Buddhist monk and scholar Xuanzang arrives at Nalanda. He studies there for five years and his detailed writings provide one of the most important historical accounts of the university at its zenith.'
       },
       'nalanda-destruction' : {
         icon : '💥',
-        title : 'The End of an Age',
+        title : 'युग का अंत (The End of an Age)',
         subtitle : '1193 CE',
         content :
             'The library of Nalanda is set aflame by invaders led by Bakhtiyar Khilji. The fire is said to have burned for three months, destroying millions of manuscripts and marking a tragic end to a 700-year legacy of learning.'
@@ -167,22 +168,22 @@ class AncientUniversitiesApp {
     this.campusData = {
       library : {
         icon : '📚',
-        title : 'Dharma Gunj - The Library',
-        subtitle : 'The Mountain of Truth',
+        title : 'धर्मगंज – पुस्तकालय (Dharma Ganj - The Library)',
+        subtitle : 'सत्य का पर्वत (The Mountain of Truth)',
         content :
             'Nalanda\'s library, the Dharma Gunj, was a nine-story complex housing three massive buildings: the Ratnasagara (Ocean of Jewels), Ratnadadhi (Sea of Jewels), and Ratnaranjaka (Jewel-Adorned). It contained an estimated nine million manuscripts.'
       },
       'lecture-hall' : {
         icon : '🎓',
-        title : 'The Lecture Halls',
-        subtitle : 'Centers of Debate',
+        title : 'व्याख्यानशाला (The Lecture Halls)',
+        subtitle : 'तर्क-वितर्क के केन्द्र (Centers of Debate)',
         content :
             'Nalanda had hundreds of lecture halls where thousands of students and teachers engaged in rigorous debate and learning. The curriculum covered every field of learning, from science and mathematics to medicine and Buddhist scriptures.'
       },
       temples : {
         icon : '🛕',
-        title : 'The Great Stupa',
-        subtitle : 'A Place of Worship and Study',
+        title : 'विशाल स्तूप (The Great Stupa)',
+        subtitle : 'उपासना एवं अध्ययन स्थल (A Place of Worship and Study)',
         content :
             'The campus was dotted with temples and stupas, with the Great Stupa being the most prominent structure. These were not just places of worship but also integral to the architectural and academic life of the monastery.'
       }
