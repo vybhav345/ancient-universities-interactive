@@ -189,6 +189,16 @@ class AncientUniversitiesApp {
       }
     };
 
+    this.faqData = {
+      'admission-secrets' : {
+        question :
+            "What were the secret admission criteria at Takshashila that historians rarely discuss?",
+        answer :
+            "Beyond intellectual prowess, candidates had to demonstrate physical endurance through a 7-day wilderness survival test..."
+      },
+      // ... other FAQ items
+    };
+
     this.audioTracks = {
       intro : "assets/audio/intro.mp3",
       takshashila : "assets/audio/takshashila.mp3",
@@ -209,6 +219,7 @@ class AncientUniversitiesApp {
     this.setupPopovers();
     this.setupScrollEffects();
     this.checkFirstVisit();
+    this.setupFAQ();
 
     window.addEventListener('load', () => {
       const loadingScreen = document.getElementById('loading-screen');
@@ -844,6 +855,34 @@ class AncientUniversitiesApp {
         this.personalizeExperience();
       }
     }
+  }
+
+  setupFAQ() {
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+
+      if (question && answer) {
+        question.addEventListener('click', () => {
+          // Close other open FAQs
+          document.querySelectorAll('.faq-answer.active')
+              .forEach(otherAnswer => {
+                if (otherAnswer !== answer) {
+                  otherAnswer.classList.remove('active');
+                }
+              });
+
+          // Toggle current FAQ
+          answer.classList.toggle('active');
+
+          // Update icon
+          const icon = question.querySelector('.faq-icon');
+          if (icon) {
+            icon.textContent = answer.classList.contains('active') ? '📖' : '📜';
+          }
+        });
+      }
+    });
   }
 
   showGreetingModal() {

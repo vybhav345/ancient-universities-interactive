@@ -1504,7 +1504,7 @@ select.form-control {
 }
 
 .takshashila-card {
-  border-color: var(--color-gold);
+  border-color: var(--color-copper);
 }
 
 .nalanda-card {
@@ -2452,6 +2452,109 @@ select.form-control {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* FAQ Section Styles */
+.faq-section {
+    padding: var(--space-32) 0;
+    background: rgba(246, 232, 214, 0.96);
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    counter-reset: faq;
+}
+
+.faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-16);
+    overflow: hidden;
+    transition: all var(--duration-normal) var(--ease-standard);
+    cursor: pointer;
+    counter-increment: faq;
+}
+
+.faq-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-20);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    color: white;
+}
+
+.faq-question h3 {
+    color: white;
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+}
+
+.faq-item .faq-question h3::before {
+  content: counter(faq) ". ";
+  font-weight: bold;
+}
+
+.faq-icon {
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+    margin-left: var(--space-16);
+}
+
+.faq-answer {
+    padding: var(--space-20);
+    display: none;
+    background: var(--color-surface);
+}
+
+.faq-answer.active {
+    display: block;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.faq-answer p {
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: var(--space-12);
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive FAQ */
+@media (max-width: 768px) {
+    .faq-question {
+        padding: var(--space-16);
+    }
+    
+    .faq-question h3 {
+        font-size: var(--font-size-md);
+    }
+    
+    .faq-answer {
+        padding: var(--space-16);
+    }
+}
+
 
 /* ==========================================================================
    8. RESPONSIVE DESIGN
