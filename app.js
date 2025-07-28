@@ -237,11 +237,12 @@ class AncientUniversitiesApp {
         const href = link.getAttribute('href');
         if (href && href.startsWith('#')) {
           this.scrollToSection(href.substring(1));
-          this.setupMobileMenu();
-          this.setupActiveLinks();
         }
       });
     });
+
+    this.setupMobileMenu();
+    this.setupActiveLinks();
 
     // Hero Button
     const beginJourneyBtn = document.getElementById('begin-journey-btn');

@@ -752,7 +752,7 @@ select.form-control {
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 1001;
+    z-index: 1102;
 }
 
 .hamburger-line {
@@ -862,6 +862,12 @@ select.form-control {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+      .theme-toggle{
+      top: 70px;        /* below navbar */
+      right: 20px;
+      z-index: 1101;    /* under hamburger */
+    }
+
     .nav-toggle {
         display: flex;
     }
