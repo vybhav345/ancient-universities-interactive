@@ -24,7 +24,8 @@
     <div id="loading-screen" aria-hidden="true">
         <div class="loader">
             <span class="lotus" role="img" aria-label="Lotus flower">🪷</span>
-            <h3>Loading Ancient Wisdom...</h3>
+            <h1>Invoking Ancient Wisdom...</h1>
+            <h3>Aligning cosmic energies ✨</h3>
         </div>
     </div>
 
@@ -36,7 +37,7 @@
         <span class="theme-icon">🌙</span>
     </button>
 
-    <!-- Enhanced Navigation -->
+    <!-- Modern Navigation -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav-brand">
@@ -44,29 +45,72 @@
                 <h1>Ancient Universities</h1>
             </div>
             
-  <!--           <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button> -->
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             
-            <ul class="nav-menu" role="menubar">
-                <li role="none"><a href="#home" class="nav-link" role="menuitem">🏛️ Home</a></li>
-                <li role="none"><a href="#takshashila" class="nav-link" role="menuitem">📜 Takshashila</a></li>
-                <li role="none"><a href="#nalanda" class="nav-link" role="menuitem">📜 Nalanda</a></li>
-                <li role="none"><a href="#timeline" class="nav-link" role="menuitem">⏳ Timeline</a></li>
-                <li role="none"><a href="#quiz" class="nav-link" role="menuitem">🧠 Quiz</a></li>
-                <li role="none"><a href="#legacy" class="nav-link" role="menuitem">🌟 Legacy</a></li>
-                <li role="none"><a href="#faq" class="nav-link" role="menuitem">❓ RAQ</a></li>    
-            </ul>
-            
-            <div class="nav-controls">
-                <button id="audio-tour-btn" class="btn btn--sm btn--outline" aria-label="Start audio tour">
-                    🎵 Audio Tour
-                </button>
+            <!-- Navigation Menu -->
+            <div class="nav-menu-wrapper" id="nav-menu">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="#home" class="nav-link" role="menuitem">
+                            <span class="nav-icon">🏛️</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#takshashila" class="nav-link" role="menuitem">
+                            <span class="nav-icon">📜</span>
+                            <span class="nav-text">Takshashila</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#nalanda" class="nav-link" role="menuitem">
+                            <span class="nav-icon">📚</span>
+                            <span class="nav-text">Nalanda</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#timeline" class="nav-link" role="menuitem">
+                            <span class="nav-icon">⏳</span>
+                            <span class="nav-text">Timeline</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#quiz" class="nav-link" role="menuitem">
+                            <span class="nav-icon">🧠</span>
+                            <span class="nav-text">Quiz</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#legacy" class="nav-link" role="menuitem">
+                            <span class="nav-icon">🌟</span>
+                            <span class="nav-text">Legacy</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#faq" class="nav-link" role="menuitem">
+                            <span class="nav-icon">❓</span>
+                            <span class="nav-text">FAQ</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="nav-controls">
+                    <button id="audio-tour-btn" class="btn btn--sm btn--outline" aria-label="Start audio tour">
+                        🎵 Audio Tour
+                    </button>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
+
 
     <!-- Audio Tour Player -->
     <aside id="audio-player" class="audio-player hidden" aria-label="Audio tour player">

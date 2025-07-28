@@ -222,10 +222,10 @@ class AncientUniversitiesApp {
     this.setupFAQ();
 
     window.addEventListener('load', () => {
-      const loadingScreen = document.getElementById('loading-screen');
-      if (loadingScreen) {
-        loadingScreen.remove();
-      }
+      setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+      }, 2500); // 2.5 seconds delay for demo
     });
   }
 
@@ -237,6 +237,8 @@ class AncientUniversitiesApp {
         const href = link.getAttribute('href');
         if (href && href.startsWith('#')) {
           this.scrollToSection(href.substring(1));
+          this.setupMobileMenu();
+          this.setupActiveLinks();
         }
       });
     });
@@ -321,6 +323,93 @@ class AncientUniversitiesApp {
     if (restartQuizBtn) {
       restartQuizBtn.addEventListener('click', () => this.restartQuiz());
     }
+  }
+
+  // Add these new methods to the class:
+  setupMobileMenu() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (navToggle && navMenu) {
+      // Create overlay for mobile menu
+      const overlay = document.createElement('div');
+      overlay.className = 'nav-overlay';
+      overlay.id = 'nav-overlay';
+      document.body.appendChild(overlay);
+
+      navToggle.addEventListener('click', () => { this.toggleMobileMenu(); });
+
+      // Close menu when clicking overlay
+      overlay.addEventListener('click', () => { this.closeMobileMenu(); });
+
+      // Close menu when clicking a nav link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => { this.closeMobileMenu(); });
+      });
+    }
+  }
+
+  toggleMobileMenu() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const overlay = document.getElementById('nav-overlay');
+
+    const isActive = navMenu.classList.contains('active');
+
+    if (isActive) {
+      this.closeMobileMenu();
+    } else {
+      navMenu.classList.add('active');
+      navToggle.classList.add('active');
+      overlay.classList.add('active');
+      navToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  closeMobileMenu() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const overlay = document.getElementById('nav-overlay');
+
+    navMenu.classList.remove('active');
+    navToggle.classList.remove('active');
+    overlay.classList.remove('active');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = 'auto';
+  }
+
+  setupActiveLinks() {
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Highlight active section on scroll
+    window.addEventListener('scroll', () => {
+      const currentSection = this.getCurrentSection();
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  }
+
+  getCurrentSection() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPosition = window.scrollY + 100;
+
+    for (let section of sections) {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollPosition >= sectionTop &&
+          scrollPosition < sectionTop + sectionHeight) {
+        return section.id;
+      }
+    }
+
+    return 'home';
   }
 
   setupIntersectionObserver() {
