@@ -227,6 +227,8 @@ class AncientUniversitiesApp {
         document.getElementById('main-content').style.display = 'block';
       }, 2500); // 2.5 seconds delay for demo
     });
+
+    console.log('🔢 Professional visitor tracking initialized');
   }
 
   setupEventListeners() {
@@ -243,6 +245,8 @@ class AncientUniversitiesApp {
 
     this.setupMobileMenu();
     this.setupActiveLinks();
+    this.initVisitorCounter();
+    this.trackPageViews();
 
     // Hero Button
     const beginJourneyBtn = document.getElementById('begin-journey-btn');
@@ -393,6 +397,101 @@ class AncientUniversitiesApp {
           link.classList.add('active');
         }
       });
+    });
+  }
+
+  initVisitorCounter() {
+    const visitorCountElement = document.getElementById('visitor-count');
+    const pageViewsElement = document.getElementById('page-views');
+
+    if (visitorCountElement && pageViewsElement) {
+      // Get or initialize visit counts
+      let sessionCount = sessionStorage.getItem('currentSession') || 0;
+      let totalVisitors = localStorage.getItem('totalVisitors') || 0;
+      let totalPageViews = localStorage.getItem('totalPageViews') || 0;
+
+      // Increment page views every visit
+      totalPageViews = parseInt(totalPageViews) + 1;
+      localStorage.setItem('totalPageViews', totalPageViews);
+
+      // Increment visitors only if new session
+      if (!sessionCount) {
+        totalVisitors = parseInt(totalVisitors) + 1;
+        sessionStorage.setItem('currentSession', '1');
+        localStorage.setItem('totalVisitors', totalVisitors);
+      }
+
+      // Animate counters
+      this.animateCounter(visitorCountElement, 0, parseInt(totalVisitors),
+                          2000);
+      this.animateCounter(pageViewsElement, 0, parseInt(totalPageViews), 2500);
+
+      // Track with Google Analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+          page_title : document.title,
+          page_location : window.location.href,
+          custom_map : {'custom_parameter_1' : 'footer_counter'}
+        });
+      }
+    }
+  }
+
+  // Enhanced counter animation method (replace existing if you have one)
+  animateCounter(element, start, end, duration = 2000) {
+    const steps = 60;
+    const increment = (end - start) / steps;
+    const stepDuration = duration / steps;
+    let current = start;
+    let step = 0;
+
+    const timer = setInterval(() => {
+      step++;
+      current = start + (increment * step);
+
+      if (step >= steps) {
+        current = end;
+        clearInterval(timer);
+      }
+
+      // Format number with commas and add smooth transition
+      element.textContent = Math.floor(current).toLocaleString();
+
+      // Add glow effect during animation
+      if (step < steps) {
+        element.style.textShadow =
+            `0 0 ${Math.sin(step * 0.1) * 2 + 2}px rgba(255, 255, 255, 0.8)`;
+      } else {
+        element.style.textShadow = '0 0 1px rgba(255, 255, 255, 0.5)';
+      }
+    }, stepDuration);
+  }
+
+  trackPageViews() {
+    // Enhanced tracking for different sections
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && typeof gtag !== 'undefined') {
+          gtag('event', 'section_view', {
+            section_name : entry.target.id,
+            engagement_time_msec : 2000,
+            custom_map : {'custom_parameter_1' : 'section_tracking'}
+          });
+        }
+      });
+    }, {threshold : 0.5});
+
+    sections.forEach(section => observer.observe(section));
+
+    // Track time on page for analytics
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'timing_complete',
+             {name : 'page_read_time', value : timeSpent});
+      }
     });
   }
 
