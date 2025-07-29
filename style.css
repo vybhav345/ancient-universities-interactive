@@ -2713,6 +2713,132 @@ select.form-control {
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* Personal Links in Footer */
+.author-link {
+    color: white;
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--duration-fast);
+    position: relative;
+}
+
+.author-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-gold);
+    transition: width var(--duration-fast);
+}
+
+.author-link:hover {
+    color: var(--color-gold);
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+.author-link:hover::after {
+    width: 100%;
+}
+
+.personal-links {
+    display: flex;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+    align-items: center;
+}
+
+.personal-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-12);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-base);
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--duration-fast);
+    backdrop-filter: blur(5px);
+}
+
+.personal-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-gold);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.link-icon {
+    font-size: var(--font-size-md);
+    transition: transform var(--duration-fast);
+}
+
+.personal-link:hover .link-icon {
+    transform: scale(1.1);
+}
+
+.link-text {
+    font-weight: var(--font-weight-medium);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: var(--space-20);
+        text-align: center;
+    }
+    
+    .personal-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--space-12);
+    }
+    
+    .personal-link {
+        padding: var(--space-8) var(--space-12);
+    }
+}
+
+@media (max-width: 480px) {
+    .personal-links {
+        gap: var(--space-8);
+    }
+    
+    .link-text {
+        display: none; /* Hide text, show only icons on very small screens */
+    }
+    
+    .personal-link {
+        padding: var(--space-8);
+        min-width: 40px;
+        justify-content: center;
+    }
+}
+
+/* Dark Mode Support */
+[data-color-scheme="dark"] .author-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+[data-color-scheme="dark"] .personal-link {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+[data-color-scheme="dark"] .personal-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-gold);
+    color: white;
+}
+
+
 
 /* ==========================================================================
    7. UTILITY CLASSES
