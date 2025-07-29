@@ -2603,7 +2603,7 @@ select.form-control {
     align-items: center;
 }
 
-.stat-item {
+.stat1-item {
     display: flex;
     align-items: center;
     gap: var(--space-12);
@@ -2616,19 +2616,19 @@ select.form-control {
     min-width: 140px;
 }
 
-.stat-item:hover {
+.stat1-item:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.stat-icon {
+.stat1-icon {
     font-size: var(--font-size-2xl);
     opacity: 0.9;
     animation: stat-pulse 3s infinite;
 }
 
-@keyframes stat-pulse {
+@keyframes stat1-pulse {
     0%, 100% { 
         transform: scale(1);
         opacity: 0.9;
@@ -2639,13 +2639,13 @@ select.form-control {
     }
 }
 
-.stat-info {
+.stat1-info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.stat-number {
+.stat1-number {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
     color: white;
@@ -2654,7 +2654,7 @@ select.form-control {
     line-height: 1.2;
 }
 
-.stat-label {
+.stat1-label {
     font-size: var(--font-size-xs);
     color: rgba(255, 255, 255, 0.8);
     font-weight: var(--font-weight-medium);
@@ -2674,12 +2674,12 @@ select.form-control {
         gap: var(--space-16);
     }
     
-    .stat-item {
+    .stat1-item {
         min-width: 120px;
         padding: var(--space-10) var(--space-12);
     }
     
-    .stat-number {
+    .stat1-number {
         font-size: var(--font-size-lg);
     }
 }
@@ -2691,7 +2691,7 @@ select.form-control {
         width: 100%;
     }
     
-    .stat-item {
+    .stat1-item {
         width: 100%;
         max-width: 200px;
         justify-content: center;
@@ -2704,12 +2704,12 @@ select.form-control {
     border-top: 1px solid var(--color-border);
 }
 
-[data-color-scheme="dark"] .stat-item {
+[data-color-scheme="dark"] .stat1-item {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-[data-color-scheme="dark"] .stat-item:hover {
+[data-color-scheme="dark"] .stat1-item:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 

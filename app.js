@@ -401,8 +401,13 @@ class AncientUniversitiesApp {
   }
 
   initVisitorCounter() {
+    console.log('🔧 Initializing visitor counter...');
+
     const visitorCountElement = document.getElementById('visitor-count');
     const pageViewsElement = document.getElementById('page-views');
+
+    console.log('Visitor count element:', visitorCountElement);
+    console.log('Page views element:', pageViewsElement);
 
     if (visitorCountElement && pageViewsElement) {
       // Get or initialize visit counts
@@ -421,24 +426,38 @@ class AncientUniversitiesApp {
         localStorage.setItem('totalVisitors', totalVisitors);
       }
 
-      // Animate counters
-      this.animateCounter(visitorCountElement, 0, parseInt(totalVisitors),
-                          2000);
-      this.animateCounter(pageViewsElement, 0, parseInt(totalPageViews), 2500);
+      console.log(`📊 Stats - Visitors: ${totalVisitors}, Page Views: ${
+          totalPageViews}`);
 
-      // Track with Google Analytics
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-          page_title : document.title,
-          page_location : window.location.href,
-          custom_map : {'custom_parameter_1' : 'footer_counter'}
-        });
-      }
+      // Set initial values immediately (no animation delay)
+      visitorCountElement.textContent = totalVisitors;
+      pageViewsElement.textContent = totalPageViews;
+
+      // Then animate counters
+      setTimeout(() => {
+        this.animateCounter(visitorCountElement, 0, parseInt(totalVisitors),
+                            2000);
+        this.animateCounter(pageViewsElement, 0, parseInt(totalPageViews),
+                            2500);
+      }, 100);
+
+    } else {
+      console.error('❌ Visitor counter elements not found!');
+      console.log(
+          'Available elements with IDs:',
+          Array.from(document.querySelectorAll('[id]')).map(el => el.id));
     }
   }
 
   // Enhanced counter animation method (replace existing if you have one)
   animateCounter(element, start, end, duration = 2000) {
+    if (!element) {
+      console.error('❌ Element not provided to animateCounter');
+      return;
+    }
+
+    console.log(`🎯 Animating counter from ${start} to ${end}`);
+
     const steps = 60;
     const increment = (end - start) / steps;
     const stepDuration = duration / steps;
