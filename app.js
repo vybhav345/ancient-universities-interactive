@@ -400,52 +400,47 @@ class AncientUniversitiesApp {
     });
   }
 
-  initVisitorCounter() {
-    console.log('🔧 Initializing visitor counter...');
+  async initVisitorCounter() {
+    console.log('🔧 Initializing Google Analytics visitor counter...');
 
     const visitorCountElement = document.getElementById('visitor-count');
     const pageViewsElement = document.getElementById('page-views');
 
-    console.log('Visitor count element:', visitorCountElement);
-    console.log('Page views element:', pageViewsElement);
-
     if (visitorCountElement && pageViewsElement) {
-      // Get or initialize visit counts
-      let sessionCount = sessionStorage.getItem('currentSession') || 0;
-      let totalVisitors = localStorage.getItem('totalVisitors') || 0;
-      let totalPageViews = localStorage.getItem('totalPageViews') || 0;
+      try {
+        // Show loading state
+        visitorCountElement.textContent = 'Loading...';
+        pageViewsElement.textContent = 'Loading...';
 
-      // Increment page views every visit
-      totalPageViews = parseInt(totalPageViews) + 1;
-      localStorage.setItem('totalPageViews', totalPageViews);
+        // Fetch real analytics data from your backend
+        const response = await fetch('/api/analytics-data');
+        const data = await response.json();
 
-      // Increment visitors only if new session
-      if (!sessionCount) {
-        totalVisitors = parseInt(totalVisitors) + 1;
-        sessionStorage.setItem('currentSession', '1');
-        localStorage.setItem('totalVisitors', totalVisitors);
+        if (data.success) {
+          console.log('📊 Data received:', data.users, data.pageViews);
+          console.log('🎯 Elements found:', visitorCountElement,
+                      pageViewsElement);
+
+          // Display real Google Analytics data
+          visitorCountElement.textContent = `${data.users}`;
+          pageViewsElement.textContent = `${data.pageViews}`;
+
+          // Then try your animation after 1 second
+          setTimeout(() => {
+            this.animateCounter(visitorCountElement, 0, data.users, 2000);
+            this.animateCounter(pageViewsElement, 0, data.pageViews, 2500);
+          }, 1000);
+        } else {
+          throw new Error(data.message || 'Failed to fetch analytics data');
+        }
+
+      } catch (error) {
+        console.error('❌ Failed to fetch Analytics data:', error);
+
+        // Show error state
+        visitorCountElement.textContent = 'Error';
+        pageViewsElement.textContent = 'Error';
       }
-
-      console.log(`📊 Stats - Visitors: ${totalVisitors}, Page Views: ${
-          totalPageViews}`);
-
-      // Set initial values immediately (no animation delay)
-      visitorCountElement.textContent = totalVisitors;
-      pageViewsElement.textContent = totalPageViews;
-
-      // Then animate counters
-      setTimeout(() => {
-        this.animateCounter(visitorCountElement, 0, parseInt(totalVisitors),
-                            2000);
-        this.animateCounter(pageViewsElement, 0, parseInt(totalPageViews),
-                            2500);
-      }, 100);
-
-    } else {
-      console.error('❌ Visitor counter elements not found!');
-      console.log(
-          'Available elements with IDs:',
-          Array.from(document.querySelectorAll('[id]')).map(el => el.id));
     }
   }
 
@@ -1166,7 +1161,9 @@ class AncientUniversitiesApp {
       const heroTitle = document.querySelector('.hero-title');
       if (heroTitle) {
         heroTitle.innerHTML =
-            `Welcome ${this.userName}!<br>Ancient India's Educational Marvels`;
+            // `Welcome ${this.userName}!<br>Ancient India's Educational
+            // Marvels`;
+            `Ancient India's Educational Marvels`;
       }
     }
   }
